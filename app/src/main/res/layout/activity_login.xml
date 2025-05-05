@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillViewport="true">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".ActivityLogin">
+
+    <View
+        android:id="@+id/components"
+        style="@style/ContainerComponents"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="164dp" />
+
+    <EditText
+        android:id="@+id/editEmail"
+        style="@style/EditText"
+        android:drawableRight="@drawable/ic_email"
+        android:hint="Email / CPF"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="@id/components"
+        app:layout_constraintStart_toStartOf="@id/components"
+        app:layout_constraintTop_toTopOf="@id/components" />
+    <EditText
+        android:id="@+id/editSenha"
+        style="@style/EditText"
+        app:layout_constraintStart_toStartOf="@id/components"
+        app:layout_constraintEnd_toEndOf="@id/components"
+        app:layout_constraintTop_toBottomOf="@id/editEmail"
+        android:hint="Senha"
+        android:drawableRight="@drawable/ic_senha"
+        android:inputType="numberPassword"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnEntrar"
+        style="@style/ButtomLogin"
+        android:layout_width="177dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="68dp"
+        android:padding="0dp"
+        android:text="@string/entrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editSenha" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
+
