@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">LoginExemplo</string>
+    <string name="entrar">Entrar</string>
+    <string name="criaconta">Criar Conta</string>
+    <string name="cadastro">Cadastre-se</string>
+</resources>
