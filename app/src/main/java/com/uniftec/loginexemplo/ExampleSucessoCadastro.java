@@ -12,7 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class SucessoCadastro extends AppCompatActivity {
+public class ExampleSucessoCadastro extends AppCompatActivity {
 
     TextView txtSucessoCad;
     Button btnSobre;
@@ -35,7 +35,7 @@ public class SucessoCadastro extends AppCompatActivity {
         btnSobre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SucessoCadastro.this, TelaSobre.class);
+                Intent intent = new Intent(ExampleSucessoCadastro.this, ExampleTelaSobre.class);
                 startActivity(intent);
             }
         });

@@ -13,37 +13,39 @@
         android:theme="@style/Theme.LoginExemplo"
         tools:targetApi="31">
         <activity
-            android:name=".SucessoCadastro"
+            android:name=".ExampleSucessoCadastro"
             android:exported="false" />
         <activity
-            android:name=".ErroCadastro"
+            android:name=".ExampleErroCadastro"
             android:exported="false" />
         <activity
-            android:name=".TelaSobre"
+            android:name=".ExampleTelaSobre"
             android:exported="false" />
         <activity
-            android:name=".SucessoLogin"
+            android:name=".ExampleSucessoLogin"
             android:exported="false" />
         <activity
-            android:name=".FormCadastro"
+            android:name=".ExampleFormCadastro"
             android:exported="false" />
+        <activity
+            android:name=".ExampleFormLogin"
+            android:exported="false" />
+        <activity
+            android:name=".ExampleTelaPerfil"
+            android:exported="false" />
+        <activity
+            android:name=".ExampleErroLogin"
+            android:exported="false" />
+        <activity
+            android:name=".ExampleMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ExampleTelaInicial"
+            android:exported="false" />
+
+
         <activity
             android:name=".FormLogin"
-            android:exported="false" />
-        <activity
-            android:name=".TelaPerfil"
-            android:exported="false" />
-        <activity
-            android:name=".ErroLogin"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TelaInicial"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityLogin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,6 +53,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".FormEsqueceuSenha"
+            android:exported="false" />
     </application>
 
 </manifest>

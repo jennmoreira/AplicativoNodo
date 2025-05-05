@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 
-public class FormCadastro extends AppCompatActivity {
+public class ExampleFormCadastro extends AppCompatActivity {
 
     private Button btnSalvar;
     private EditText editNome, editEnder, editNumber, editCep, editEmail, editSenha;
@@ -57,11 +57,11 @@ public class FormCadastro extends AppCompatActivity {
 
                 if (!camposVazios.isEmpty()) {
                     // Chama a tela de erro, passando os campos faltantes
-                    Intent intent = new Intent(FormCadastro.this, ErroCadastro.class);
+                    Intent intent = new Intent(ExampleFormCadastro.this, ExampleErroCadastro.class);
                     intent.putStringArrayListExtra("camposFaltando", camposVazios);
                     startActivity(intent);
                 } else {
-                    Intent intent = new Intent(FormCadastro.this, SucessoCadastro.class);
+                    Intent intent = new Intent(ExampleFormCadastro.this, ExampleSucessoCadastro.class);
                     intent.putExtra("nomeUsuario", nome); // nome capturado lá em cima
                     startActivity(intent);
 

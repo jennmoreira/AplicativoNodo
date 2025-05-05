@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 
-public class ErroCadastro extends AppCompatActivity {
+public class ExampleErroCadastro extends AppCompatActivity {
 
     private TextView txtVerifique;
     private Button btnVoltar;
@@ -41,7 +41,7 @@ public class ErroCadastro extends AppCompatActivity {
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ErroCadastro.this, FormCadastro.class);
+                Intent intent = new Intent(ExampleErroCadastro.this, ExampleFormCadastro.class);
                 startActivity(intent);
                 finish();
             }

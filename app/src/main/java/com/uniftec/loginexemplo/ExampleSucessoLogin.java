@@ -11,29 +11,28 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class ErroLogin extends AppCompatActivity {
+public class ExampleSucessoLogin extends AppCompatActivity {
 
-    private Button btnVoltar;
+    private Button btnSobre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.example_erro_login);
+        setContentView(R.layout.example_sucesso_login);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        btnVoltar = findViewById(R.id.btnVoltar);
+        btnSobre = findViewById(R.id.btnSobre);
 
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
+        btnSobre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ErroLogin.this, FormLogin.class);
+                Intent intent = new Intent(ExampleSucessoLogin.this, ExampleTelaSobre.class);
                 startActivity(intent);
             }
         });
-
     }
 }

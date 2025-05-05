@@ -13,29 +13,28 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class FormLogin extends AppCompatActivity {
+public class ExampleFormLogin extends AppCompatActivity {
 
-    private TextView txtCadastro;
-    private TextView txtEsqueceuSenha;
-    private static final String email_valido = "grupo";
+    private TextView txtCriaConta;
+    private static final String email_valido = "jennifer";
     private static final String senha_valido = "1234";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.example_form_login);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-
-
         EditText editEmail = findViewById(R.id.editEmail);
         EditText editSenha = findViewById(R.id.editSenha);
         Button btnEntrar = findViewById(R.id.btnEntrar);
+
 
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,35 +43,31 @@ public class FormLogin extends AppCompatActivity {
                 String senha_digitado = editSenha.getText().toString().trim();
 
                 if(email_digitado.equals(email_valido) && senha_digitado.equals(senha_valido)){
-                    Intent intent = new Intent(FormLogin.this, ExampleSucessoLogin.class);
+                    Intent intent = new Intent(ExampleFormLogin.this, ExampleSucessoLogin.class);
                     startActivity(intent);
                 }
                 else {
-                    Intent intent = new Intent(FormLogin.this, ExampleErroLogin.class);
+                    Intent intent = new Intent(ExampleFormLogin.this, ExampleErroLogin.class);
                     startActivity(intent);
                 }
 
             }
         });
 
-
-        txtCadastro = findViewById(R.id.textCadastro);
-        txtCadastro.setOnClickListener(new View.OnClickListener() {
+        IniciarComponentes();
+        txtCriaConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FormLogin.this, ExampleFormCadastro.class);
+                Intent intent = new Intent(ExampleFormLogin.this, ExampleFormCadastro.class);
                 startActivity(intent);
             }
         });
 
 
-        txtEsqueceuSenha = findViewById(R.id.textEsqueceuSenha);
-        txtEsqueceuSenha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FormLogin.this, FormEsqueceuSenha.class);
-                startActivity(intent);
-            }
-        });
+    }
+
+
+    private void IniciarComponentes() {
+        txtCriaConta = findViewById(R.id.txtCriaConta);
     }
 }
