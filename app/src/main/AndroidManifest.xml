@@ -56,6 +56,9 @@
         <activity
             android:name=".FormEsqueceuSenha"
             android:exported="false" />
+        <activity
+            android:name=".Home"
+            android:exported="false" />
     </application>
 
 </manifest>

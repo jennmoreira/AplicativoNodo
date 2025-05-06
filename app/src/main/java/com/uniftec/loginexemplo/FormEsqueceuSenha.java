@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,8 +29,6 @@ public class FormEsqueceuSenha extends AppCompatActivity {
             return insets;
         });
 
-
-
         EditText editEmail = findViewById(R.id.editEmail);
         Button btnEntrar = findViewById(R.id.btnEnviar);
 
@@ -39,13 +38,23 @@ public class FormEsqueceuSenha extends AppCompatActivity {
                 String email_digitado = editEmail.getText().toString().trim();
 
                 if(email_digitado.equals(email_valido)){
-                    Intent intent = new Intent(FormEsqueceuSenha.this, ExampleSucessoLogin.class);
+                    Toast.makeText(FormEsqueceuSenha.this, "E-mail enviado, verifique sua caixa!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(FormEsqueceuSenha.this, FormLogin.class);
                     startActivity(intent);
                 }
                 else {
-                    Intent intent = new Intent(FormEsqueceuSenha.this, ExampleErroLogin.class);
-                    startActivity(intent);
+                    Toast.makeText(FormEsqueceuSenha.this, "E-mail deve ser informado!", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        Button btnVoltar = findViewById(R.id.btnVoltar);
+
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FormEsqueceuSenha.this, FormLogin.class);
+                startActivity(intent);
             }
         });
     }

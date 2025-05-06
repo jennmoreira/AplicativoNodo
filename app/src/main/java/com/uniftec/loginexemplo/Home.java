@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class FormLogin extends AppCompatActivity {
+public class Home extends AppCompatActivity {
 
     private TextView txtCadastro;
     private TextView txtEsqueceuSenha;
@@ -45,12 +44,14 @@ public class FormLogin extends AppCompatActivity {
                 String senha_digitado = editSenha.getText().toString().trim();
 
                 if(email_digitado.equals(email_valido) && senha_digitado.equals(senha_valido)){
-                    Intent intent = new Intent(FormLogin.this, Home.class);
+                    Intent intent = new Intent(Home.this, ExampleSucessoLogin.class);
                     startActivity(intent);
                 }
                 else {
-                    Toast.makeText(FormLogin.this, "E-mail e/ou senha incorreto(s)", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Home.this, ExampleErroLogin.class);
+                    startActivity(intent);
                 }
+
             }
         });
 
@@ -59,7 +60,7 @@ public class FormLogin extends AppCompatActivity {
         txtCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FormLogin.this, ExampleFormCadastro.class);
+                Intent intent = new Intent(Home.this, ExampleFormCadastro.class);
                 startActivity(intent);
             }
         });
@@ -69,7 +70,7 @@ public class FormLogin extends AppCompatActivity {
         txtEsqueceuSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FormLogin.this, FormEsqueceuSenha.class);
+                Intent intent = new Intent(Home.this, FormEsqueceuSenha.class);
                 startActivity(intent);
             }
         });
