@@ -5,5 +5,169 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".ExampleTelaInicial"/>
+    android:background="@color/bluelight"
+    android:padding="0dp"
+    tools:context=".ExampleTelaInicial">
+
+    <EditText
+        android:id="@+id/filterPesquisar"
+        style="@style/FilterText"
+        android:layout_width="349dp"
+        android:layout_height="48dp"
+        android:hint="Pesquisar"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.037" />
+
+    <View
+        android:id="@+id/components3"
+        style="@style/ContainerComponentsNoMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="690dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.621" />
+
+    <LinearLayout
+        android:layout_width="363dp"
+        android:layout_height="116dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/components3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/components3"
+        app:layout_constraintVertical_bias="0.834">
+
+        <View
+            android:id="@+id/categoria1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@color/bluelight" />
+
+        <View
+            android:id="@+id/categoria4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:background="@color/bluelight" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView6"
+        style="@style/Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="432dp"
+        android:text="Meus eventos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.087"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/components3" />
+
+    <LinearLayout
+        android:layout_width="363dp"
+        android:layout_height="116dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/components3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/components3"
+        app:layout_constraintVertical_bias="0.466">
+
+        <View
+            android:id="@+id/categoria1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@color/bluelight" />
+
+        <View
+            android:id="@+id/categoria4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:background="@color/bluelight" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView5"
+        style="@style/Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="216dp"
+        android:text="Vagas recentes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.091"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/components3" />
+
+    <TextView
+        android:id="@+id/textView4"
+        style="@style/Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Categoria"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/components3" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="364dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="76dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/components3">
+
+        <View
+            android:id="@+id/categoria1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@color/bluelight" />
+
+        <View
+            android:id="@+id/categoria2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2.5dp"
+            android:layout_weight="1"
+            android:background="@color/bluelight" />
+
+        <View
+            android:id="@+id/categoria3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2.5dp"
+            android:layout_weight="1"
+            android:background="@color/bluelight" />
+
+        <View
+            android:id="@+id/categoria4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:background="@color/bluelight" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
