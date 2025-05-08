@@ -29,13 +29,7 @@ public class ExampleTelaInicial extends AppCompatActivity {
         btnSobre = findViewById(R.id.btnSobre);
         btnCadastro = findViewById(R.id.btnCadastro);
 
-        btnSobre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ExampleTelaInicial.this, ExampleTelaSobre.class);
-                startActivity(intent);
-            }
-        });
+
         btnCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

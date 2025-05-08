@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.uniftec.loginexemplo.R;
 
 public class MainActivity extends AppCompatActivity {
 

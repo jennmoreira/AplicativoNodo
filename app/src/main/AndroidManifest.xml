@@ -31,9 +31,6 @@
             android:name=".ExampleErroCadastro"
             android:exported="false" />
         <activity
-            android:name=".ExampleTelaSobre"
-            android:exported="false" />
-        <activity
             android:name=".ExampleSucessoLogin"
             android:exported="false" />
         <activity

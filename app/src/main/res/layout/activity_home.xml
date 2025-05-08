@@ -47,7 +47,7 @@
         app:layout_constraintVertical_bias="0.834">
 
         <View
-            android:id="@+id/categoria1"
+            android:id="@+id/categoria7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
@@ -55,7 +55,7 @@
             android:background="@color/bluelight" />
 
         <View
-            android:id="@+id/categoria4"
+            android:id="@+id/categoria8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -86,7 +86,7 @@
         app:layout_constraintVertical_bias="0.466">
 
         <View
-            android:id="@+id/categoria1"
+            android:id="@+id/categoria5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
@@ -94,7 +94,7 @@
             android:background="@color/bluelight" />
 
         <View
-            android:id="@+id/categoria4"
+            android:id="@+id/categoria6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -179,5 +179,18 @@
             android:layout_marginTop="20dp" />
 
     </LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/btnNavega"
+        android:background="@color/bluelight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/btnnavega_menu"
+        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/white"
+
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

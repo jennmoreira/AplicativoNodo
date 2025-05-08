@@ -61,9 +61,7 @@ public class ExampleFormCadastro extends AppCompatActivity {
                     intent.putStringArrayListExtra("camposFaltando", camposVazios);
                     startActivity(intent);
                 } else {
-                    Intent intent = new Intent(ExampleFormCadastro.this, ExampleSucessoCadastro.class);
-                    intent.putExtra("nomeUsuario", nome); // nome capturado lá em cima
-                    startActivity(intent);
+
 
                     finish();
                 }
