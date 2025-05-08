@@ -42,14 +42,11 @@
         <activity
             android:name=".ExampleTelaInicial"
             android:exported="false" />
-
-
         <activity
             android:name=".FormLogin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -58,6 +55,9 @@
             android:exported="false" />
         <activity
             android:name=".Home"
+            android:exported="false" />
+        <activity
+            android:name=".CriarContaActivity"
             android:exported="false" />
     </application>
 
