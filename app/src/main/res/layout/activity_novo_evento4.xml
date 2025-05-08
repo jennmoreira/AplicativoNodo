@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityNovoEvento4"
+    android:background="@drawable/background">
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnVoltarNovoEvento4"
+        style="@style/ButtonVoltar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:contentDescription="@string/voltar"
+        android:src="@drawable/image_voltar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022" />
+
+    <TextView
+        android:id="@+id/textViewNovoEvento4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Novo Evento"
+        android:textColor="#ffff"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="48dp"
+        tools:ignore="MissingConstraints" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNovoEvento4"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/containercomponentsbluedark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNovoEvento4"
+        android:padding="20sp">
+
+        <TextView
+            android:id="@+id/textViewInfosVagas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4. Vagas do Evento"
+            android:textColor="#ffff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textViewTituloVaga"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Título da vaga *"
+            android:textColor="#ffff"
+            android:textSize="15sp"
+            android:layout_marginTop="20sp" />
+
+        <EditText
+            android:id="@+id/editTituloVaga"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="15sp"
+            android:maxLength="80" />
+
+        <TextView
+            android:id="@+id/textViewCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Categoria *"
+            android:textColor="#ffff"
+            android:textSize="15sp"
+            android:layout_marginTop="20sp"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:layout_marginTop="8dp">
+
+            <RadioButton android:text="Segurança" android:textColor="#ffff" />
+            <RadioButton android:text="Limpeza" android:textColor="#ffff" />
+            <RadioButton android:text="Organizacional" android:textColor="#ffff" />
+            <RadioButton android:text="Artístico" android:textColor="#ffff" />
+            <RadioButton android:text="Infraestrutura" android:textColor="#ffff" />
+            <RadioButton android:text="Camarim" android:textColor="#ffff" />
+        </GridLayout>
+
+        <TextView
+            android:id="@+id/textViewBairro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descrição das atividades *"
+            android:textColor="#ffff"
+            android:textSize="15sp"
+            android:layout_marginTop="20sp"/>
+
+        <EditText
+            android:id="@+id/editTextDescricao"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:ems="100"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:textSize="15sp" />
+
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/round_button_background"
+            android:src="@drawable/ic_add"
+            android:contentDescription="Adicionar nova vaga"
+            app:tint="#ffff" />
+
+        <Button
+            android:id="@+id/buttonPublicarEvento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Publicar Evento"
+            android:layout_marginTop="15sp"
+            android:layout_gravity="center"
+            android:textColor="@color/bluedark"
+            android:backgroundTint="@color/bluebaby"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
