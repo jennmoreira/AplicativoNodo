@@ -4,4 +4,19 @@
     <string name="criaconta">Criar Conta</string>
     <string name="cadastro">Cadastre-se</string>
     <string name="voltar">Voltar</string>
+    
+    <string name="DataEvento">
+        Data Inicial: xxxx
+        \nData Final: xxxx
+        \nHora Inicial: xxxx
+        \nHora Final: xxxx
+        \nO evento tera duração de xx dias e xxx horas
+    </string>
+    <string name="localEvento">
+        Rua xxxxxx n° xxxx
+        \nBairro XXXXX
+        \nCidade XXXXX
+        \nEstado XXXXX - UF: XXXXXXX
+    </string>
+
 </resources>
