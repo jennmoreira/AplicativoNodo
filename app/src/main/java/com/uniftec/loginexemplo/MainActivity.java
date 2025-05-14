@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.uniftec.loginexemplo.R;
+import com.uniftec.loginexemplo.VPAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,13 +32,8 @@ public class MainActivity extends AppCompatActivity {
         tabItem.setupWithViewPager(viewPager);
 
         VPAdapter vpAdapter = new VPAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        vpAdapter.addFragment(new FragmentEventos(),"Eventos");
-        vpAdapter.addFragment(new FragmentPrestadores(),"Candidatos");
+        vpAdapter.addFragment(new com.example.tablayout.FragmentEventos(),"Eventos");
+        vpAdapter.addFragment(new com.example.tablayout.FragmentPrestadores(),"Candidatos");
         viewPager.setAdapter(vpAdapter);
-
-
-
-
-
     }
 }

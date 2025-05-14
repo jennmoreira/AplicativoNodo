@@ -25,53 +25,22 @@
             android:name=".ActivityNovoEvento"
             android:exported="false" />
         <activity
-            android:name=".ExampleSucessoCadastro"
+            android:name=".EsqueceuSenha"
             android:exported="false" />
         <activity
-            android:name=".ExampleErroCadastro"
+            android:name=".Home"
             android:exported="false" />
         <activity
-            android:name=".ExampleSucessoLogin"
+            android:name=".Cadastro"
             android:exported="false" />
         <activity
-            android:name=".ExampleFormCadastro"
-            android:exported="false" />
-        <activity
-            android:name=".ExampleFormLogin"
-            android:exported="false" />
-        <activity
-            android:name=".ExampleTelaPerfil"
-            android:exported="false" />
-        <activity
-            android:name=".ExampleErroLogin"
-            android:exported="false" />
-        <activity
-            android:name=".ExampleMainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ExampleTelaInicial"
-            android:exported="false" />
-        <activity
-            android:name=".FormLogin"
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".FormEsqueceuSenha"
-            android:exported="false" />
-        <activity
-            android:name=".Home"
-            android:exported="false" />
-        <activity
-            android:name=".CriarContaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TrocarSenhaActivity"
-            android:exported="false" />
-
     </application>
 
 </manifest>

@@ -14,24 +14,21 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class FormLogin extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
-    private TextView txtCadastro;
+    private TextView eventCadastro;
     private TextView txtEsqueceuSenha;
-    private static final String email_valido = "grupo";
-    private static final String senha_valido = "1234";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
 
 
         EditText editEmail = findViewById(R.id.editEmail);
@@ -44,22 +41,22 @@ public class FormLogin extends AppCompatActivity {
                 String email_digitado = editEmail.getText().toString().trim();
                 String senha_digitado = editSenha.getText().toString().trim();
 
-                if(email_digitado.equals(email_valido) && senha_digitado.equals(senha_valido)){
-                    Intent intent = new Intent(FormLogin.this, Home.class);
-                    startActivity(intent);
+                if(email_digitado.isEmpty() || senha_digitado.isEmpty()){
+                    Toast.makeText(Login.this, "E-mail e/ou senha incorreto(s)", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Toast.makeText(FormLogin.this, "E-mail e/ou senha incorreto(s)", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Login.this, Home.class);
+                    startActivity(intent);
                 }
             }
         });
 
 
-        txtCadastro = findViewById(R.id.textCadastro);
-        txtCadastro.setOnClickListener(new View.OnClickListener() {
+        eventCadastro = findViewById(R.id.textCadastro);
+        eventCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FormLogin.this, ExampleFormCadastro.class);
+                Intent intent = new Intent(Login.this, Cadastro.class);
                 startActivity(intent);
             }
         });
@@ -69,7 +66,7 @@ public class FormLogin extends AppCompatActivity {
         txtEsqueceuSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FormLogin.this, FormEsqueceuSenha.class);
+                Intent intent = new Intent(Login.this, EsqueceuSenha.class);
                 startActivity(intent);
             }
         });

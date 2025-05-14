@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -14,15 +13,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class FormEsqueceuSenha extends AppCompatActivity {
-
-    private static final String email_valido = "grupo";
+public class EsqueceuSenha extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_esqueceu_senha);
+        setContentView(R.layout.esqueceu_senha);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -37,13 +34,13 @@ public class FormEsqueceuSenha extends AppCompatActivity {
             public void onClick(View v) {
                 String email_digitado = editEmail.getText().toString().trim();
 
-                if(email_digitado.equals(email_valido)){
-                    Toast.makeText(FormEsqueceuSenha.this, "E-mail enviado, verifique sua caixa!", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(FormEsqueceuSenha.this, FormLogin.class);
-                    startActivity(intent);
+                if(email_digitado.isEmpty()){
+                    Toast.makeText(EsqueceuSenha.this, "E-mail deve ser informado!", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Toast.makeText(FormEsqueceuSenha.this, "E-mail deve ser informado!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EsqueceuSenha.this, "E-mail enviado, verifique sua caixa!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(EsqueceuSenha.this, Login.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -53,7 +50,7 @@ public class FormEsqueceuSenha extends AppCompatActivity {
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FormEsqueceuSenha.this, FormLogin.class);
+                Intent intent = new Intent(EsqueceuSenha.this, Login.class);
                 startActivity(intent);
             }
         });
