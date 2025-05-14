@@ -35,7 +35,7 @@ public class TrocarSenhaActivity extends AppCompatActivity {
         EditText textSenhaAtual = findViewById(R.id.editTextSenhaAtual);
         EditText textNovaSenha = findViewById(R.id.editTextNovaSenha);
         EditText textConfirmarNovaSenha = findViewById(R.id.editTextConfirmarNovaSenha);
-        Button btnConfirmar = findViewById(R.id.buttonTrocarSenha);
+        Button btnConfirmar = findViewById(R.id.btnTrocarSenha);
 
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
