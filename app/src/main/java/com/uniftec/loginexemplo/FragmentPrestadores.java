@@ -1,4 +1,4 @@
-package com.example.tablayout;
+package com.uniftec.loginexemplo;
 
 import android.os.Bundle;
 

@@ -43,7 +43,7 @@ public class Home extends AppCompatActivity {
         evento1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Home.this, com.example.tablayout.DetailEvento.class);
+                Intent intent = new Intent(Home.this, DetailEvento.class);
                 startActivity(intent);
             }
         });
@@ -52,7 +52,7 @@ public class Home extends AppCompatActivity {
         evento2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Home.this, com.example.tablayout.DetailEvento.class);
+                Intent intent = new Intent(Home.this,DetailEvento.class);
                 startActivity(intent);
             }
         });
