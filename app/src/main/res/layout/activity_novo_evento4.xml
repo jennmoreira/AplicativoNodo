@@ -22,7 +22,8 @@
         app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintVertical_bias="0.022"
+        android:onClick="Voltar"/>
 
     <TextView
         android:id="@+id/textViewNovoEvento4"
@@ -87,19 +88,63 @@
             android:textSize="15sp"
             android:layout_marginTop="20sp"/>
 
-        <GridLayout
+
+        <RadioGroup
+            android:id="@+id/radioGroupCategoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="3"
-            android:layout_marginTop="8dp">
+            android:orientation="vertical"
+            android:layout_marginTop="20sp" >
 
-            <RadioButton android:text="Segurança" android:textColor="#ffff" />
-            <RadioButton android:text="Limpeza" android:textColor="#ffff" />
-            <RadioButton android:text="Organizacional" android:textColor="#ffff" />
-            <RadioButton android:text="Artístico" android:textColor="#ffff" />
-            <RadioButton android:text="Infraestrutura" android:textColor="#ffff" />
-            <RadioButton android:text="Camarim" android:textColor="#ffff" />
-        </GridLayout>
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="3"
+                android:layout_marginTop="8dp">
+
+                <RadioButton
+                    android:id="@+id/rbSeguranca"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Segurança"
+                    android:textColor="#ffff"/>
+
+                <RadioButton
+                    android:id="@+id/rbLimpeza"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Limpeza"
+                    android:textColor="#ffff" />
+
+                <RadioButton
+                    android:id="@+id/rbOrganizacional"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Organizacional"
+                    android:textColor="#ffff" />
+
+                <RadioButton
+                    android:id="@+id/rbArtistico"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Artístico"
+                    android:textColor="#ffff" />
+
+                <RadioButton
+                    android:id="@+id/rbInfraestrutura"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Infraestrutura"
+                    android:textColor="#ffff" />
+
+                <RadioButton
+                    android:id="@+id/rbCamarim"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Camarim"
+                    android:textColor="#ffff" />
+            </GridLayout>
+        </RadioGroup>
 
         <TextView
             android:id="@+id/textViewBairro"

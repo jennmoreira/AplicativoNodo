@@ -22,7 +22,8 @@
         app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintVertical_bias="0.022"
+        android:onClick="Voltar"/>
 
     <TextView
         android:id="@+id/textViewNovoEvento"
@@ -105,7 +106,7 @@
             android:layout_marginTop="10sp"/>
 
         <EditText
-            android:id="@+id/editTextTextMultiLine"
+            android:id="@+id/editTextDescricao"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:ems="100"
@@ -121,7 +122,8 @@
             android:layout_marginTop="15sp"
             android:layout_gravity="center"
             android:textColor="@color/bluedark"
-            android:backgroundTint="@color/bluebaby"/>
+            android:backgroundTint="@color/bluebaby"
+            android:onClick="validarCampos"/>
 
     </LinearLayout>
 
