@@ -28,16 +28,16 @@
             android:name=".ActivityNovoEvento"
             android:exported="false" />
         <activity
-            android:name=".EsqueceuSenha"
+            android:name=".login.EsqueciSenhaActivity"
+            android:exported="true" />
+        <activity
+            android:name=".home.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".Home"
+            android:name=".login.CadastroActivity"
             android:exported="false" />
         <activity
-            android:name=".Cadastro"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

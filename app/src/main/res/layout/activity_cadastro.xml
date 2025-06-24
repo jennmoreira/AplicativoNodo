@@ -11,7 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background"
-        tools:context=".CadastroActivity">
+        tools:context=".login.CadastroActivity">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnVoltar"
+            style="@style/ButtonVoltar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/voltar"
+            android:onClick="Voltar"
+            android:src="@drawable/image_voltar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.034"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.022" />
 
         <View
             android:id="@+id/components"
@@ -21,8 +36,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/editTextName"
@@ -65,7 +79,7 @@
             android:layout_marginTop="12dp" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonCriarConta"
+            android:id="@+id/btnCriar"
             style="@style/ButtomLogin"
             android:text="Criar Conta"
             android:layout_width="306dp"

@@ -13,7 +13,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.uniftec.loginexemplo.databinding.TrocarSenhaBinding;
+import com.uniftec.loginexemplo.home.HomeActivity;
+
 
 public class TrocarSenhaActivity extends AppCompatActivity {
 
@@ -25,7 +26,7 @@ public class TrocarSenhaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.trocar_senha);
+        setContentView(R.layout.activity_trocar_senha);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -49,7 +50,7 @@ public class TrocarSenhaActivity extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(com.uniftec.loginexemplo.TrocarSenhaActivity.this, "Senha alterada!", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(TrocarSenhaActivity.this, Home.class);
+                    Intent intent = new Intent(TrocarSenhaActivity.this, HomeActivity.class);
                     startActivity(intent);
                 }
             }

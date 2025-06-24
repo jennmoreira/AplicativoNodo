@@ -14,6 +14,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.uniftec.loginexemplo.home.HomeActivity;
+
 public class ActivityNovoEvento4 extends AppCompatActivity {
 
     private EditText editTituloVaga, editDescVaga;
@@ -59,7 +61,7 @@ public class ActivityNovoEvento4 extends AppCompatActivity {
 
         Toast.makeText(this, "Evento publicado!", Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(ActivityNovoEvento4.this, Home.class);
+        Intent intent = new Intent(ActivityNovoEvento4.this, HomeActivity.class);
         startActivity(intent);
         finish();
 
