@@ -39,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
 
         inicializarComponentes();
         configurarEventos();
+        carregarFragmento(new FragmentHome());
     }
 
     private void inicializarComponentes(){
@@ -60,24 +61,34 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-
                 Fragment selectedFragment = null;
 
-                if (itemId == R.id.item_home) {
-                } else if (itemId == R.id.item_eventos) {
-                } else if (itemId == R.id.item_perfil) {
+                int id = item.getItemId();
+
+                if (id == R.id.item_home) {
+                    selectedFragment = new FragmentHome();
+                } else if (id == R.id.item_eventos) {
+                    selectedFragment = new FragmentEventos();
+                } else if (id == R.id.item_perfil) {
+                    selectedFragment = new FragmentPerfil();
                 }
 
+
                 if (selectedFragment != null) {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.listview, selectedFragment);
-                    fragmentTransaction.commit();
+                    carregarFragmento(selectedFragment);
                     return true;
                 }
                 return false;
             }
         });
+
     }
+
+    private void carregarFragmento(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.listview, fragment);
+        fragmentTransaction.commit();
+    }
+
 }

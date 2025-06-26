@@ -40,10 +40,10 @@ public class ActivityNovoEvento2 extends AppCompatActivity {
     }
 
     private void validarEAvancar() {
-        String di = editDataInicio .getText().toString().trim();
-        String hi = editHoraInicio .getText().toString().trim();
-        String df = editDataFinal .getText().toString().trim();
-        String hf = editHoraFinal .getText().toString().trim();
+        String di = editDataInicio.getText().toString().trim();
+        String hi = editHoraInicio.getText().toString().trim();
+        String df = editDataFinal.getText().toString().trim();
+        String hf = editHoraFinal.getText().toString().trim();
 
         if (di.isEmpty()) {
             editDataInicio.setError("A data de início do evento é obrigatória.");
@@ -66,12 +66,24 @@ public class ActivityNovoEvento2 extends AppCompatActivity {
             return;
         }
 
+        // Recuperando os dados que vieram da tela anterior
+        Intent dadosRecebidos = getIntent();
+        String nome = dadosRecebidos.getStringExtra("nomeEvento");
+        String descricao = dadosRecebidos.getStringExtra("descricaoEvento");
+
+        // Criando intent para ir para a próxima tela
         Intent intent = new Intent(this, ActivityNovoEvento3.class);
+
+        // Repassando os dados da tela anterior
+        intent.putExtra("nomeEvento", nome);
+        intent.putExtra("descricaoEvento", descricao);
+
+        // Passando os dados desta tela
+        intent.putExtra("dataInicio", di);
+        intent.putExtra("horaInicio", hi);
+        intent.putExtra("dataFinal", df);
+        intent.putExtra("horaFinal", hf);
+
         startActivity(intent);
     }
-
-    public void Voltar(View view) {
-        finish();
-    }
-
 }

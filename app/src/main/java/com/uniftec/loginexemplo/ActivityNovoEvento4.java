@@ -33,13 +33,28 @@ public class ActivityNovoEvento4 extends AppCompatActivity {
             return insets;
         });
 
+        // Pegando os dados das telas anteriores
+        Intent intent = getIntent();
+        String nomeEvento = intent.getStringExtra("nomeEvento");
+        String descricaoEvento = intent.getStringExtra("descricaoEvento");
+        String dataInicio = intent.getStringExtra("dataInicio");
+        String horaInicio = intent.getStringExtra("horaInicio");
+        String dataFinal = intent.getStringExtra("dataFinal");
+        String horaFinal = intent.getStringExtra("horaFinal");
+        String rua = intent.getStringExtra("rua");
+        String numero = intent.getStringExtra("numero");
+        String bairro = intent.getStringExtra("bairro");
+        String cidade = intent.getStringExtra("cidade");
+        String uf = intent.getStringExtra("uf");
+
+        // Agora você pode usar esses dados (exibir, salvar, etc.)
+
         editTituloVaga = findViewById(R.id.editTituloVaga);
-        rgCategoria    = findViewById(R.id.radioGroupCategoria);
-        editDescVaga   = findViewById(R.id.editTextDescricao);
-        botaoPublicar    = findViewById(R.id.buttonPublicarEvento);
+        rgCategoria = findViewById(R.id.radioGroupCategoria);
+        editDescVaga = findViewById(R.id.editTextDescricao);
+        botaoPublicar = findViewById(R.id.buttonPublicarEvento);
 
         botaoPublicar.setOnClickListener(v -> validarEConcluir());
-
     }
 
     private void validarEConcluir() {

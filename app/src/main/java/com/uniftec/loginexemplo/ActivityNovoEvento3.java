@@ -66,7 +66,24 @@ public class ActivityNovoEvento3 extends AppCompatActivity {
             return;
         }
 
+
         Intent intent = new Intent(this, ActivityNovoEvento4.class);
+
+// Pegando os dados das telas anteriores
+        intent.putExtra("nomeEvento", getIntent().getStringExtra("nomeEvento"));
+        intent.putExtra("descricaoEvento", getIntent().getStringExtra("descricaoEvento"));
+        intent.putExtra("dataInicio", getIntent().getStringExtra("dataInicio"));
+        intent.putExtra("horaInicio", getIntent().getStringExtra("horaInicio"));
+        intent.putExtra("dataFinal", getIntent().getStringExtra("dataFinal"));
+        intent.putExtra("horaFinal", getIntent().getStringExtra("horaFinal"));
+
+// Pegando os dados atuais
+        intent.putExtra("rua", editRua.getText().toString().trim());
+        intent.putExtra("numero", editNumero.getText().toString().trim());
+        intent.putExtra("bairro", editBairro.getText().toString().trim());
+        intent.putExtra("cidade", editCidade.getText().toString().trim());
+        intent.putExtra("uf", editUF.getText().toString().trim());
+
         startActivity(intent);
     }
 

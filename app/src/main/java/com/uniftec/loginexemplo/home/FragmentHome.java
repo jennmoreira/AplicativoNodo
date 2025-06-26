@@ -1,4 +1,4 @@
-package com.uniftec.loginexemplo;
+package com.uniftec.loginexemplo.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,16 +7,16 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-public class FragmentEventos extends Fragment {
+import com.uniftec.loginexemplo.R;
 
-    public FragmentEventos() {
-        // Construtor público obrigatório
-    }
+public class FragmentHome extends Fragment {
+
+    public FragmentHome() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Infla o layout do fragmento
-        return inflater.inflate(R.layout.fragment_eventos, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 }
+
