@@ -41,6 +41,9 @@ public class LoginActivity extends AppCompatActivity {
 
         inicializarComponentes();
         configurarEventos();
+
+        editEmail.setText("a@gmail.com");
+        editSenha.setText("123456");
     }
 
     private void inicializarComponentes() {

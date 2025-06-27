@@ -31,12 +31,26 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_CREATE);
+        inserirUsuarioPadrao(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         onCreate(db);
+    }
+
+    private void inserirUsuarioPadrao(SQLiteDatabase db) {
+        String nomePadrao = "Usuário Teste";
+        String emailPadrao = "a@gmail.com";
+        String senhaPadrao = "123456";
+
+        ContentValues values = new ContentValues();
+        values.put(USU_NOME, nomePadrao);
+        values.put(USU_EMAIL, emailPadrao);
+        values.put(USU_SENHA, senhaPadrao);
+
+        db.insert(TABLE_USERS, null, values);
     }
 
     public boolean criarUsuario(String name, String email, String password) {
@@ -92,5 +106,35 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
         }
 
         return userId;
+    }
+
+    public String retornaNomeUsuario(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String userName = "";
+
+        String[] columns = { USU_NOME };
+        String selection = USU_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(userId) };
+
+        Cursor cursor = null;
+        try {
+            cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int nameColumnIndex = cursor.getColumnIndex(USU_NOME);
+                if (nameColumnIndex != -1) {
+                    userName = cursor.getString(nameColumnIndex);
+                }
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+
+        return userName;
     }
 }
