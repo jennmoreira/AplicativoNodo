@@ -4,18 +4,55 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.uniftec.loginexemplo.R;
+import com.uniftec.loginexemplo.sql.UsuariosDatabaseHelper;
 
 public class FragmentPerfil extends Fragment {
 
-    public FragmentPerfil() {}
+    private TextView textUsuario;
+    private long USU_ID_SESSION = -1;
+
+    public FragmentPerfil() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            USU_ID_SESSION = getArguments().getLong("USU_ID_SESSION", -1L);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_perfil, container, false);
+        View view = inflater.inflate(R.layout.fragment_perfil, container, false);
+        inicializarComponentes(view);
+        return view;
+    }
+
+    private void inicializarComponentes(View view) {
+        textUsuario = view.findViewById(R.id.textUsuario);
+
+        if (USU_ID_SESSION != -1) {
+            UsuariosDatabaseHelper dbHelper = new UsuariosDatabaseHelper(getContext());
+            String USU_NOME = dbHelper.retornaNomeUsuario((int) USU_ID_SESSION);
+            dbHelper.close();
+
+            if (!USU_NOME.isEmpty()) {
+                textUsuario.setText("Olá, " + USU_NOME + "!");
+            } else {
+                textUsuario.setText("Olá!");
+            }
+        } else {
+            textUsuario.setText("Olá!");
+        }
     }
 }

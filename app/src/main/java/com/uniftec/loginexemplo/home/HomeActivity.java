@@ -25,6 +25,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private View vaga1, vaga2, evento1, evento2;
     private BottomNavigationView bottomNavigationView;
+    private long USU_ID_SESSION = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,11 @@ public class HomeActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("USU_ID_SESSION")) {
+            USU_ID_SESSION = intent.getLongExtra("USU_ID_SESSION", -1L);
+        }
 
         inicializarComponentes();
         configurarEventos();
@@ -71,6 +77,9 @@ public class HomeActivity extends AppCompatActivity {
                     selectedFragment = new FragmentEventos();
                 } else if (id == R.id.item_perfil) {
                     selectedFragment = new FragmentPerfil();
+                    Bundle bundleHome = new Bundle();
+                    bundleHome.putLong("USU_ID_SESSION", USU_ID_SESSION);
+                    selectedFragment.setArguments(bundleHome);
                 }
 
 

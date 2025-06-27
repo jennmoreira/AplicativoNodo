@@ -68,12 +68,12 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        long userId = dbHelper.realizaLogin(email, password);
+        long USU_ID_SESSION = dbHelper.realizaLogin(email, password);
 
-        if (userId != -1) {
+        if (USU_ID_SESSION != -1) {
             Toast.makeText(this, getString(R.string.login_realizado), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            intent.putExtra("USU_ID", userId);
+            intent.putExtra("USU_ID_SESSION", USU_ID_SESSION);
             startActivity(intent);
             finish();
         } else{
