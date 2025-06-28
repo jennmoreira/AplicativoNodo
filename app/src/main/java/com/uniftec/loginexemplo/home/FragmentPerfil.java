@@ -8,13 +8,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.uniftec.loginexemplo.R;
-import com.uniftec.loginexemplo.login.CadastroActivity;
 import com.uniftec.loginexemplo.login.LoginActivity;
 import com.uniftec.loginexemplo.perfil.ConfPrivacidadeActivity;
 import com.uniftec.loginexemplo.perfil.EditarPerfilActivity;
@@ -24,7 +21,6 @@ import com.uniftec.loginexemplo.sql.UsuariosDatabaseHelper;
 
 public class FragmentPerfil extends Fragment {
 
-    private TextView textUsuario;
     private long USU_ID_SESSION = -1;
     private Button btnLogout, btnEditar, btnTrocarSenha, btnSobre, btnPrivacidade;
 
@@ -46,12 +42,12 @@ public class FragmentPerfil extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
         inicializarComponentes(view);
-        configurarEventos(view);
+        configurarEventos();
         return view;
     }
 
     private void inicializarComponentes(View view) {
-        textUsuario = view.findViewById(R.id.textUsuario);
+        TextView textUsuario = view.findViewById(R.id.textUsuario);
 
         if (USU_ID_SESSION != -1) {
             UsuariosDatabaseHelper dbHelper = new UsuariosDatabaseHelper(getContext());
@@ -61,10 +57,10 @@ public class FragmentPerfil extends Fragment {
             if (!USU_NOME.isEmpty()) {
                 textUsuario.setText("Olá, " + USU_NOME + "!");
             } else {
-                textUsuario.setText("Olá!");
+                textUsuario.setText(R.string.ola);
             }
         } else {
-            textUsuario.setText("Olá!");
+            textUsuario.setText(R.string.ola);
         }
 
         btnLogout = view.findViewById(R.id.btnLogout);
@@ -74,7 +70,7 @@ public class FragmentPerfil extends Fragment {
         btnPrivacidade = view.findViewById(R.id.btnPrivacidade);
     }
 
-    private void configurarEventos(View view){
+    private void configurarEventos(){
         btnLogout.setOnClickListener(v -> realizaLogout());
         btnEditar.setOnClickListener(v -> editarPerfil());
         btnTrocarSenha.setOnClickListener(v -> trocarSenha());

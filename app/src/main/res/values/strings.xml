@@ -40,5 +40,27 @@
     <string name="senha_nova_obrigatoria">Senha nova é obrigatória</string>
     <string name="senhas_nao_conferem">Senhas não conferem</string>
     <string name="senha_invalida">Senhas inválida</string>
+    <string name="ola">Olá!</string>
+    <string name="editar_perfil">Editar Perfil</string>
+    <string name="trocar_senha">Trocar Senha</string>
+    <string name="sobre_aplicativo">Sobre o Aplicativo</string>
+    <string name="politica_privacidade">Política de Privacidade</string>
+    <string name="sair_conta">Sair da Conta</string>
+    <string name="email">E-mail</string>
+    <string name="enviar">Enviar</string>
+    <string name="nome">Nome</string>
+    <string name="email_exemplo">seu.email@exemplo.com</string>
+    <string name="salvar">Salvar</string>
+    <string name="cidade_exemplo">Ex: Caxias do Sul</string>
+    <string name="cidade">Cidade</string>
+    <string name="estado">Estado</string>
+    <string name="estado_exemplo">Ex: RS</string>
+    <string name="endereco_exemplo">Ex: RS</string>
+    <string name="endereco">Ex: Rua, número, complemento</string>
+    <string name="telefone_exemplo">(XX) XXXXX-XXXX</string>
+    <string name="telefone">Telefone</string>
+    <string name="senha">Senha</string>
+    <string name="criar_conta">Criar Conta</string>
+    <string name="confirmar_senha">Confirmar Senha</string>
 
 </resources>

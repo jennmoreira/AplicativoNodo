@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -19,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Olá, usuário"
+        android:text="@string/ola"
         android:textColor="#FFEFEF"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -37,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/bluedark"
-        android:text="Editar Perfil" />
+        android:text="@string/editar_perfil" />
 
     <Button
         android:id="@+id/btnTrocarSenha"
@@ -45,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/bluedark"
-        android:text="Trocar Senha" />
+        android:text="@string/trocar_senha" />
 
     <Button
         android:id="@+id/btnSobre"
@@ -53,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/bluedark"
-        android:text="Sobre o Aplicativo" />
+        android:text="@string/sobre_aplicativo" />
 
     <Button
         android:id="@+id/btnPrivacidade"
@@ -61,13 +59,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/bluedark"
-        android:text="Configurações de Privacidade" />
+        android:text="@string/politica_privacidade" />
 
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sair da Conta"
+        android:text="@string/sair_conta"
         android:backgroundTint="@android:color/holo_red_light"
         android:textColor="@android:color/white"/>
 
