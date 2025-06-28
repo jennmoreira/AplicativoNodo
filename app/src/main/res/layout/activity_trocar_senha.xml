@@ -1,68 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background"
-        tools:context=".TrocarSenhaActivity">
-
-        <View
-            android:id="@+id/components"
-            style="@style/ContainerComponents"
-            android:layout_width="354dp"
-            android:layout_height="458dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.48"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/editTextSenhaAtual"
-            style="@style/EditText"
-            android:hint="Senha atual"
-            android:inputType="textPassword"
-            app:layout_constraintTop_toTopOf="@+id/components"
-            app:layout_constraintStart_toStartOf="@+id/components"
-            app:layout_constraintEnd_toEndOf="@+id/components" />
-
-        <EditText
-            android:id="@+id/editTextNovaSenha"
-            style="@style/EditText"
-            android:hint="Nova senha"
-            android:inputType="textPassword"
-            app:layout_constraintTop_toBottomOf="@+id/editTextSenhaAtual"
-            app:layout_constraintStart_toStartOf="@+id/components"
-            app:layout_constraintEnd_toEndOf="@+id/components"
-            android:layout_marginTop="16dp" />
-
-        <EditText
-            android:id="@+id/editTextConfirmarNovaSenha"
-            style="@style/EditText"
-            android:hint="Confirmar nova senha"
-            android:inputType="textPassword"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNovaSenha"
-            app:layout_constraintStart_toStartOf="@+id/components"
-            app:layout_constraintEnd_toEndOf="@+id/components"
-            android:layout_marginTop="16dp" />
+        android:layout_height="wrap_content" android:background="@color/bluelight"
+        tools:context=".login.CadastroActivity" >
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnTrocarSenha"
-            style="@style/ButtomLogin"
-            android:layout_width="306dp"
-            android:layout_height="61dp"
+        android:id="@+id/btnVoltar"
+        style="@style/ButtonVoltar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:contentDescription="@string/voltar"
+        android:onClick="Voltar"
+        android:src="@drawable/image_voltar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022" />
+
+        <TextView
+            android:id="@+id/textTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
             android:text="Trocar Senha"
-            app:layout_constraintTop_toBottomOf="@+id/editTextConfirmarNovaSenha"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="40dp" />
+            app:layout_constraintHorizontal_bias="0.373"
+            app:layout_constraintStart_toEndOf="@+id/btnVoltar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text"
+            style="@style/Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="36dp"
+            android:text="Senha Atual"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textTitulo" />
+
+        <EditText
+            android:id="@+id/editSenhaAtual"
+            style="@style/EditText"
+            android:layout_marginTop="60dp"
+            android:drawableRight="@drawable/ic_senha"
+            android:hint="*****"
+            android:inputType="numberPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textTitulo" />
+
+        <TextView
+            android:id="@+id/labelEmail"
+            style="@style/Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="144dp"
+            android:text="Senha Nova"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textTitulo" />
+
+        <EditText
+            android:id="@+id/editSenhaNova"
+            style="@style/EditText"
+            android:layout_width="330dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="168dp"
+            android:drawableRight="@drawable/ic_senha"
+            android:hint="*****"
+            android:inputType="numberPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textTitulo" />
+
+        <TextView
+            android:id="@+id/labelTelefone"
+            style="@style/Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="260dp"
+            android:text="Confirmar Nova Senha"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textTitulo" />
+
+        <EditText
+            android:id="@+id/editSenhaNovaConf"
+            style="@style/EditText"
+            android:layout_marginTop="284dp"
+            android:drawableRight="@drawable/ic_senha"
+            android:hint="*****"
+            android:inputType="numberPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textTitulo" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSalvar"
+            style="@style/ButtomLogin"
+            android:layout_width="0dp"
+            android:layout_height="61dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="180dp"
+            android:backgroundTint="@color/green"
+            android:text="Salvar Alterações"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

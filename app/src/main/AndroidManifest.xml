@@ -40,6 +40,15 @@
             android:name=".perfil.EditarPerfilActivity"
             android:exported="false" />
         <activity
+            android:name=".perfil.TrocarSenhaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".perfil.SobreAplicativoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".perfil.ConfPrivacidadeActivity"
+            android:exported="false" />
+        <activity
             android:name=".login.LoginActivity"
             android:exported="true">
             <intent-filter>

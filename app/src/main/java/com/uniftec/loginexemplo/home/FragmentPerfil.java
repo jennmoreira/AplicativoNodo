@@ -16,14 +16,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.uniftec.loginexemplo.R;
 import com.uniftec.loginexemplo.login.CadastroActivity;
 import com.uniftec.loginexemplo.login.LoginActivity;
+import com.uniftec.loginexemplo.perfil.ConfPrivacidadeActivity;
 import com.uniftec.loginexemplo.perfil.EditarPerfilActivity;
+import com.uniftec.loginexemplo.perfil.SobreAplicativoActivity;
+import com.uniftec.loginexemplo.perfil.TrocarSenhaActivity;
 import com.uniftec.loginexemplo.sql.UsuariosDatabaseHelper;
 
 public class FragmentPerfil extends Fragment {
 
     private TextView textUsuario;
     private long USU_ID_SESSION = -1;
-    private Button btnLogout, btnEditar;
+    private Button btnLogout, btnEditar, btnTrocarSenha, btnSobre, btnPrivacidade;
 
 
     public FragmentPerfil() {
@@ -66,11 +69,17 @@ public class FragmentPerfil extends Fragment {
 
         btnLogout = view.findViewById(R.id.btnLogout);
         btnEditar = view.findViewById(R.id.btnEditar);
+        btnTrocarSenha = view.findViewById(R.id.btnTrocarSenha);
+        btnSobre = view.findViewById(R.id.btnSobre);
+        btnPrivacidade = view.findViewById(R.id.btnPrivacidade);
     }
 
     private void configurarEventos(View view){
         btnLogout.setOnClickListener(v -> realizaLogout());
         btnEditar.setOnClickListener(v -> editarPerfil());
+        btnTrocarSenha.setOnClickListener(v -> trocarSenha());
+        btnSobre.setOnClickListener(v -> sobre());
+        btnPrivacidade.setOnClickListener(v -> privacidade());
     }
 
     private void realizaLogout() {
@@ -80,6 +89,24 @@ public class FragmentPerfil extends Fragment {
 
     private void editarPerfil() {
         Intent intent = new Intent(getActivity(), EditarPerfilActivity.class);
+        intent.putExtra("USU_ID_SESSION", USU_ID_SESSION);
+        startActivity(intent);
+    }
+
+    private void trocarSenha() {
+        Intent intent = new Intent(getActivity(), TrocarSenhaActivity.class);
+        intent.putExtra("USU_ID_SESSION", USU_ID_SESSION);
+        startActivity(intent);
+    }
+
+    private void sobre() {
+        Intent intent = new Intent(getActivity(), SobreAplicativoActivity.class);
+        intent.putExtra("USU_ID_SESSION", USU_ID_SESSION);
+        startActivity(intent);
+    }
+
+    private void privacidade() {
+        Intent intent = new Intent(getActivity(), ConfPrivacidadeActivity.class);
         intent.putExtra("USU_ID_SESSION", USU_ID_SESSION);
         startActivity(intent);
     }

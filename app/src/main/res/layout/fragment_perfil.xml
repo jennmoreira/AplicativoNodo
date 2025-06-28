@@ -64,14 +64,6 @@
         android:text="Configurações de Privacidade" />
 
     <Button
-        android:id="@+id/btnAjuda"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/bluedark"
-        android:text="Ajuda e Perguntas Frequentes" />
-
-    <Button
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

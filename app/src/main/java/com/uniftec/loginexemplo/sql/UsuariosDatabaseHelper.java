@@ -25,7 +25,7 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_USERS + " (" +
                     USU_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     USU_NOME + " TEXT NOT NULL, " +
-                    USU_EMAIL + " TEXT NOT NULL, " +
+                    USU_EMAIL + " TEXT NOT NULL UNIQUE, " +
                     USU_TELEFONE + " TEXT , " +
                     USU_ENDERECO + " TEXT , " +
                     USU_ESTADO + " TEXT , " +
@@ -61,31 +61,31 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_USERS, null, values);
     }
 
-    public boolean criarUsuario(String name, String email, String password) {
+    public boolean criarUsuario(String pUSU_NOME, String pUSU_EMAIL, String pUSU_SENHA) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(USU_NOME, name);
-        values.put(USU_EMAIL, email);
-        values.put(USU_SENHA, password);
+        values.put(USU_NOME, pUSU_NOME);
+        values.put(USU_EMAIL, pUSU_EMAIL);
+        values.put(USU_SENHA, pUSU_SENHA);
 
         long result = db.insert(TABLE_USERS, null, values);
         db.close();
         return result != -1;
     }
 
-    public boolean atualizaUsuario(long userId, String name, String email, String telefone, String endereco, String estado, String cidade) {
+    public boolean atualizaUsuario(long pUSU_ID, String pUSU_NOME, String pUSU_EMAIL, String pUSU_TELEFONE, String pUSU_ENDERECO, String pUSU_ESTADO, String pUSU_CIDADE) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(USU_NOME, name);
-        values.put(USU_EMAIL, email);
-        values.put(USU_TELEFONE, telefone);
-        values.put(USU_ENDERECO, endereco);
-        values.put(USU_ESTADO, estado);
-        values.put(USU_CIDADE, cidade);
+        values.put(USU_NOME, pUSU_NOME);
+        values.put(USU_EMAIL, pUSU_EMAIL);
+        values.put(USU_TELEFONE, pUSU_TELEFONE);
+        values.put(USU_ENDERECO, pUSU_ENDERECO);
+        values.put(USU_ESTADO, pUSU_ESTADO);
+        values.put(USU_CIDADE, pUSU_CIDADE);
 
         String selection = USU_ID + " = ?";
-        String[] selectionArgs = { String.valueOf(userId) };
+        String[] selectionArgs = { String.valueOf(pUSU_ID) };
 
         int rowsAffected = db.update(TABLE_USERS, values, selection, selectionArgs);
         db.close();
@@ -93,11 +93,11 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
         return rowsAffected > 0;
     }
 
-    public boolean validaEmailUtilizado(String email) {
+    public boolean validaEmailUtilizado(String pUSU_EMAIL) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = { USU_EMAIL };
         String selection = USU_EMAIL + " = ?";
-        String[] selectionArgs = { email };
+        String[] selectionArgs = { pUSU_EMAIL };
 
         Cursor cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
 
@@ -108,13 +108,13 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
         return count > 0;
     }
 
-    public long realizaLogin(String email, String password) {
+    public long realizaLogin(String pUSU_EMAIL, String pUSU_SENHA) {
         SQLiteDatabase db = this.getReadableDatabase();
         long userId = -1;
 
         String[] columns = { USU_ID, USU_EMAIL, USU_SENHA };
         String selection = USU_EMAIL + " = ?" + " AND " + USU_SENHA + " = ?";
-        String[] selectionArgs = { email, password };
+        String[] selectionArgs = { pUSU_EMAIL, pUSU_SENHA };
 
         Cursor cursor = null;
         try {
@@ -136,13 +136,13 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
         return userId;
     }
 
-    public String retornaNomeUsuario(int PARM_USU_ID) {
+    public String retornaNomeUsuario(int pUSU_ID) {
         SQLiteDatabase db = this.getReadableDatabase();
         String userName = "";
 
         String[] columns = { USU_NOME };
         String selection = USU_ID + " = ?";
-        String[] selectionArgs = { String.valueOf(PARM_USU_ID) };
+        String[] selectionArgs = { String.valueOf(pUSU_ID) };
 
         Cursor cursor = null;
         try {
@@ -166,14 +166,14 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
         return userName;
     }
 
-    public Usuario carregaDadosUsuario(long PARM_USU_ID) {
+    public Usuario carregaDadosUsuario(long pUSU_ID) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
         Usuario usuario = null;
 
         String[] columns = { USU_ID, USU_NOME, USU_EMAIL, USU_TELEFONE, USU_ENDERECO, USU_ESTADO, USU_CIDADE };
         String selection = USU_ID + " = ?";
-        String[] selectionArgs = { String.valueOf(PARM_USU_ID) };
+        String[] selectionArgs = { String.valueOf(pUSU_ID) };
 
         try {
             cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
@@ -196,5 +196,47 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
             db.close();
         }
         return usuario;
+    }
+
+    public boolean validaSenhaAtual(long pUSU_ID, String pUSU_SENHA) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] columns = { USU_ID };
+        String selection = USU_ID + " = ?" + " AND " + USU_SENHA + " = ?";
+        String[] selectionArgs = { String.valueOf(pUSU_ID) , pUSU_SENHA};
+
+        Cursor cursor = null;
+        try {
+            cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int nameColumnIndex = cursor.getColumnIndex(USU_ID);
+                if (nameColumnIndex != -1) {
+                    return true;
+                }
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+
+        return false;
+    }
+
+    public void atualizarSenhaUsuario(long pUSU_ID, String pUSU_SENHA) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(USU_SENHA, pUSU_SENHA);
+
+        String selection = USU_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(pUSU_ID) };
+
+        db.update(TABLE_USERS, values, selection, selectionArgs);
+        db.close();
     }
 }
