@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="Olá, usuário"
+        android:textColor="#FFEFEF"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -34,32 +35,44 @@
         android:id="@+id/btnEditar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Editar Perfil"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/bluedark"
+        android:text="Editar Perfil" />
 
     <Button
-        android:id="@+id/btn_about"
+        android:id="@+id/btnTrocarSenha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sobre o Aplicativo"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/bluedark"
+        android:text="Trocar Senha" />
 
     <Button
-        android:id="@+id/btn_privacy_settings"
+        android:id="@+id/btnSobre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Configurações de Privacidade"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/bluedark"
+        android:text="Sobre o Aplicativo" />
 
     <Button
-        android:id="@+id/btn_help_faq"
+        android:id="@+id/btnPrivacidade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ajuda e Perguntas Frequentes"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/bluedark"
+        android:text="Configurações de Privacidade" />
 
     <Button
-        android:id="@+id/btn_logout"
+        android:id="@+id/btnAjuda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/bluedark"
+        android:text="Ajuda e Perguntas Frequentes" />
+
+    <Button
+        android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sair da Conta"

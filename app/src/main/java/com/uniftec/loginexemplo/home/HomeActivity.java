@@ -45,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
 
         inicializarComponentes();
         configurarEventos();
-        carregarFragmento(new FragmentHome());
+        bottomNavigationView.setSelectedItemId(R.id.item_home);
     }
 
     private void inicializarComponentes(){
@@ -57,12 +57,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void configurarEventos() {
-        /*
-        evento1.setOnClickListener(v -> abrirEvento1());
-        evento2.setOnClickListener(v -> abrirEvento2());
-        vaga1.setOnClickListener(v -> abrirVaga1());
-        vaga2.setOnClickListener(v -> abrirVaga2());
-         */
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -90,7 +84,6 @@ public class HomeActivity extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 
     private void carregarFragmento(Fragment fragment) {

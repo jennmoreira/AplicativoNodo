@@ -37,6 +37,9 @@
             android:name=".login.CadastroActivity"
             android:exported="false" />
         <activity
+            android:name=".perfil.EditarPerfilActivity"
+            android:exported="false" />
+        <activity
             android:name=".login.LoginActivity"
             android:exported="true">
             <intent-filter>

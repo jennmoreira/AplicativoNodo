@@ -9,19 +9,27 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "apkProjeto.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public static final String TABLE_USERS = "USUARIOS";
     public static final String USU_ID = "id";
     public static final String USU_NOME = "name";
     public static final String USU_EMAIL = "email";
     public static final String USU_SENHA = "password";
+    public static final String USU_ENDERECO = "endereco";
+    public static final String USU_ESTADO = "estado";
+    public static final String USU_CIDADE = "cidade";
+    public static final String USU_TELEFONE = "telefone";
 
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_USERS + " (" +
                     USU_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     USU_NOME + " TEXT NOT NULL, " +
                     USU_EMAIL + " TEXT NOT NULL, " +
+                    USU_TELEFONE + " TEXT , " +
+                    USU_ENDERECO + " TEXT , " +
+                    USU_ESTADO + " TEXT , " +
+                    USU_CIDADE + " TEXT , " +
                     USU_SENHA + " TEXT NOT NULL);";
 
     public UsuariosDatabaseHelper(Context context) {
@@ -63,6 +71,26 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_USERS, null, values);
         db.close();
         return result != -1;
+    }
+
+    public boolean atualizaUsuario(long userId, String name, String email, String telefone, String endereco, String estado, String cidade) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(USU_NOME, name);
+        values.put(USU_EMAIL, email);
+        values.put(USU_TELEFONE, telefone);
+        values.put(USU_ENDERECO, endereco);
+        values.put(USU_ESTADO, estado);
+        values.put(USU_CIDADE, cidade);
+
+        String selection = USU_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(userId) };
+
+        int rowsAffected = db.update(TABLE_USERS, values, selection, selectionArgs);
+        db.close();
+
+        return rowsAffected > 0;
     }
 
     public boolean validaEmailUtilizado(String email) {
@@ -108,13 +136,13 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
         return userId;
     }
 
-    public String retornaNomeUsuario(int userId) {
+    public String retornaNomeUsuario(int PARM_USU_ID) {
         SQLiteDatabase db = this.getReadableDatabase();
         String userName = "";
 
         String[] columns = { USU_NOME };
         String selection = USU_ID + " = ?";
-        String[] selectionArgs = { String.valueOf(userId) };
+        String[] selectionArgs = { String.valueOf(PARM_USU_ID) };
 
         Cursor cursor = null;
         try {
@@ -136,5 +164,37 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
         }
 
         return userName;
+    }
+
+    public Usuario carregaDadosUsuario(long PARM_USU_ID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        Usuario usuario = null;
+
+        String[] columns = { USU_ID, USU_NOME, USU_EMAIL, USU_TELEFONE, USU_ENDERECO, USU_ESTADO, USU_CIDADE };
+        String selection = USU_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(PARM_USU_ID) };
+
+        try {
+            cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                long id = cursor.getLong(cursor.getColumnIndexOrThrow(USU_ID));
+                String nome = cursor.getString(cursor.getColumnIndexOrThrow(USU_NOME));
+                String email = cursor.getString(cursor.getColumnIndexOrThrow(USU_EMAIL));
+                String telefone = cursor.getString(cursor.getColumnIndexOrThrow(USU_TELEFONE));
+                String endereco = cursor.getString(cursor.getColumnIndexOrThrow(USU_ENDERECO));
+                String estado = cursor.getString(cursor.getColumnIndexOrThrow(USU_ESTADO));
+                String cidade = cursor.getString(cursor.getColumnIndexOrThrow(USU_CIDADE));
+
+                usuario = new Usuario(id, nome, email, telefone, endereco, estado, cidade);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return usuario;
     }
 }
