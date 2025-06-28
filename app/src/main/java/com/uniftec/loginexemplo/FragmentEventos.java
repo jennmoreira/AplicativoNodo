@@ -2,6 +2,7 @@ package com.uniftec.loginexemplo;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.widget.Toast;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,7 +17,7 @@ public class FragmentEventos extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Infla o layout do fragmento
+        Toast.makeText(getContext(), "FragmentEventos carregado", Toast.LENGTH_SHORT).show();
         return inflater.inflate(R.layout.fragment_eventos, container, false);
     }
 }
