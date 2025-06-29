@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -17,8 +16,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.uniftec.loginexemplo.DetailEvento;
-import com.uniftec.loginexemplo.FragmentEventos;
 import com.uniftec.loginexemplo.R;
 
 public class HomeActivity extends AppCompatActivity {

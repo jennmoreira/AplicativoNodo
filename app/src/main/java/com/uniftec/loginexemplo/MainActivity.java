@@ -4,16 +4,11 @@ import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-import com.uniftec.loginexemplo.R;
-import com.uniftec.loginexemplo.VPAdapter;
+import com.uniftec.loginexemplo.home.FragmentEventos;
 
 public class MainActivity extends AppCompatActivity {
 

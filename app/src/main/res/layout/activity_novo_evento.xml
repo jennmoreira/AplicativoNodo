@@ -74,6 +74,7 @@
             android:id="@+id/editNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#ffff"
             android:inputType="text"
             android:textSize="15sp"
             android:maxLength="80" />
@@ -109,6 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:ems="100"
+            android:textColor="#ffff"
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:textSize="15sp" />

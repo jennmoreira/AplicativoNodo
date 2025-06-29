@@ -1,27 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:aplicativo="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentEventos"
-    aplicativo:cardCornerRadius="20dp">
+    tools:context=".home.FragmentEventos"
+    app:cardCornerRadius="20dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Lista de eventos -->
         <ListView
             android:id="@+id/lista_eventos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Fragment Eventos funcionando"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:divider="@android:color/transparent"
             android:dividerHeight="4.0sp"
             android:padding="5dp"
             android:scrollbars="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/list_item" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Botão flutuante para adicionar evento -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnAdicionarEvento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:contentDescription="Adicionar evento"
+            android:src="@drawable/ic_add"
+            android:backgroundTint="@color/bluelight"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -76,6 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:textColor="#ffff"
             android:textSize="15sp"
             android:maxLength="80" />
 
@@ -93,6 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
+            android:textColor="#ffff"
             android:textSize="15sp"
             android:maxLength="6" />
 
@@ -110,6 +112,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:textColor="#ffff"
             android:textSize="15sp"
             android:maxLength="80" />
 
@@ -127,6 +130,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:textColor="#ffff"
             android:textSize="15sp"
             android:maxLength="80" />
 
@@ -144,6 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:textColor="#ffff"
             android:textSize="15sp"
             android:maxLength="2" />
 
