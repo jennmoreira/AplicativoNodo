@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.FragmentEventos"
+    tools:context=".home.HomeActivity"
     app:cardCornerRadius="20dp">
 
 <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Lista de eventos -->
         <ListView
             android:id="@+id/lista_eventos"
             android:layout_width="0dp"
@@ -25,7 +24,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/list_item" />
 
-        <!-- Botão flutuante para adicionar evento -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnAdicionarEvento"
             android:layout_width="wrap_content"
@@ -33,7 +31,7 @@
             android:layout_margin="16dp"
             android:contentDescription="Adicionar evento"
             android:src="@drawable/ic_add"
-            android:backgroundTint="@color/bluelight"
+            android:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

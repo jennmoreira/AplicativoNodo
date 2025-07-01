@@ -1,4 +1,4 @@
-package com.uniftec.loginexemplo.home;
+package com.uniftec.loginexemplo.home.perfil;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import com.uniftec.loginexemplo.perfil.ConfPrivacidadeActivity;
 import com.uniftec.loginexemplo.perfil.EditarPerfilActivity;
 import com.uniftec.loginexemplo.perfil.SobreAplicativoActivity;
 import com.uniftec.loginexemplo.perfil.TrocarSenhaActivity;
-import com.uniftec.loginexemplo.sql.UsuariosDatabaseHelper;
+import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
 
 public class FragmentPerfil extends Fragment {
 

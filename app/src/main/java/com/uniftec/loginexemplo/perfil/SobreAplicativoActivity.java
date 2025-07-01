@@ -3,22 +3,14 @@ package com.uniftec.loginexemplo.perfil;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.TextUtils;
-import android.util.Log;
-import android.util.Patterns;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.uniftec.loginexemplo.R;
 import com.uniftec.loginexemplo.home.HomeActivity;
-import com.uniftec.loginexemplo.login.LoginActivity;
-import com.uniftec.loginexemplo.sql.Usuario;
-import com.uniftec.loginexemplo.sql.UsuariosDatabaseHelper;
 
 
 public class SobreAplicativoActivity extends AppCompatActivity {

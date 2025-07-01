@@ -1,10 +1,8 @@
 package com.uniftec.loginexemplo.perfil;
 
 import android.content.Intent;
-import android.database.Cursor; // Importe Cursor
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,10 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.uniftec.loginexemplo.R;
 import com.uniftec.loginexemplo.home.HomeActivity;
 import com.uniftec.loginexemplo.login.LoginActivity;
-import com.uniftec.loginexemplo.sql.UsuariosDatabaseHelper;
-import com.uniftec.loginexemplo.sql.Usuario; // Assumindo que você tem essa classe
+import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
+import com.uniftec.loginexemplo.sql.usuarios.Usuario; // Assumindo que você tem essa classe
 
-import java.util.Date;
 
 public class EditarPerfilActivity extends AppCompatActivity {
 

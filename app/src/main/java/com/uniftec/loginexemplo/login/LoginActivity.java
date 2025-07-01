@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.uniftec.loginexemplo.home.HomeActivity;
 import com.uniftec.loginexemplo.R;
-import com.uniftec.loginexemplo.sql.UsuariosDatabaseHelper;
+import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
 
 public class LoginActivity extends AppCompatActivity {
 

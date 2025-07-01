@@ -3,7 +3,6 @@ package com.uniftec.loginexemplo.perfil;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.uniftec.loginexemplo.R;
 import com.uniftec.loginexemplo.home.HomeActivity;
 import com.uniftec.loginexemplo.login.LoginActivity;
-import com.uniftec.loginexemplo.sql.UsuariosDatabaseHelper;
+import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
 
 
 public class TrocarSenhaActivity extends AppCompatActivity {

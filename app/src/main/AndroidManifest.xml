@@ -25,7 +25,7 @@
             android:name=".ActivityNovoEvento2"
             android:exported="false" />
         <activity
-            android:name=".ActivityNovoEvento"
+            android:name=".ActivityEvento"
             android:exported="false" />
         <activity
             android:name=".login.EsqueciSenhaActivity"

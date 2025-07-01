@@ -1,4 +1,4 @@
-package com.uniftec.loginexemplo.sql;
+package com.uniftec.loginexemplo.sql.usuarios;
 
 public class Usuario {
     private long id;

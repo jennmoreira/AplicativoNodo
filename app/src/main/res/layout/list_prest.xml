@@ -40,7 +40,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="80dp"
             android:layout_height="30dp"
-            android:id="@+id/listEdit"
+            android:id="@+id/btnEditar"
             android:src="@drawable/ic_chat"
             android:layout_toEndOf="@id/listName"
             android:layout_marginTop="25dp"

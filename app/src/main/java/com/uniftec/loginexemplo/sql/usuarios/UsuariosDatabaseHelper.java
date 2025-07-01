@@ -1,4 +1,4 @@
-package com.uniftec.loginexemplo.sql;
+package com.uniftec.loginexemplo.sql.usuarios;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "apkProjeto.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 7;
 
     public static final String TABLE_USERS = "USUARIOS";
     public static final String USU_ID = "id";
@@ -146,6 +146,7 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = null;
         try {
+
             cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
 
             if (cursor != null && cursor.moveToFirst()) {

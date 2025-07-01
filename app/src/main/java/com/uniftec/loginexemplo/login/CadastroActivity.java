@@ -12,7 +12,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.uniftec.loginexemplo.R;
-import com.uniftec.loginexemplo.sql.UsuariosDatabaseHelper;
+import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
 
 public class CadastroActivity extends AppCompatActivity {
 

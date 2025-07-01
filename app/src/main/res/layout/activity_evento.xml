@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityEvento"
+    android:background="@drawable/background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/bluedark"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnVoltarNovoEvento"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/image_voltar"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/voltar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="16dp"
+            android:tint="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textViewNovoEvento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Novo Evento"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/btnVoltarNovoEvento"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/topBarLayout"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:id="@+id/textViewInfosBasicas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1. Informações básicas"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/textViewNomeEvento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nome do Evento *"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/editNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/darker_gray"
+                android:inputType="textCapSentences"
+                android:textSize="16sp"
+                android:maxLength="80"
+                android:backgroundTint="@android:color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/textViewImagemDivulgacao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Imagem de divulgação (opcional)"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
+
+            <Button
+                android:id="@+id/buttonUpload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selecionar imagem"
+                android:backgroundTint="@color/bluelight"
+                android:textColor="@android:color/white"
+                android:paddingVertical="12dp"
+                android:textSize="16sp"
+                android:layout_marginBottom="16dp"
+                app:cornerRadius="8dp"/>
+
+            <TextView
+                android:id="@+id/textViewDescricaoEvento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descrição do Evento *"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/editTextDescricao"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:gravity="top|start"
+                android:inputType="textMultiLine"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/darker_gray"
+                android:textSize="16sp"
+                android:backgroundTint="@android:color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="24dp"/>
+
+            <TextView
+                android:id="@+id/textViewInfosSecundarias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2. Data e Hora"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp"/>
+
+            <TextView
+                android:id="@+id/textViewDataInicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data de Início *"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/editDataInicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/darker_gray"
+                android:inputType="date"
+                android:textSize="16sp"
+                android:backgroundTint="@android:color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"
+                android:hint="DD/MM/AAAA" />
+
+            <TextView
+                android:id="@+id/textViewHoraInicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hora de Início *"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/editHoraInicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/darker_gray"
+                android:inputType="time"
+                android:textSize="16sp"
+                android:backgroundTint="@android:color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"
+                android:hint="HH:MM" />
+
+            <TextView
+                android:id="@+id/textViewDataFinal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data Final *"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/editDataFinal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/darker_gray"
+                android:inputType="date"
+                android:textSize="16sp"
+                android:backgroundTint="@android:color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"
+                android:hint="DD/MM/AAAA" />
+
+            <TextView
+                android:id="@+id/textViewHoraFinal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hora Final *"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/editHoraFinal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/darker_gray"
+                android:inputType="time"
+                android:textSize="16sp"
+                android:backgroundTint="@android:color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="24dp"
+                android:hint="HH:MM" />
+
+            <TextView
+                android:id="@+id/textViewInfosTerciarias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3. Local do Evento"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp"/>
+
+            <TextView
+                android:id="@+id/textViewRua"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rua *"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/editRua"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/darker_gray"
+                android:inputType="textCapSentences"
+                android:textSize="16sp"
+                android:maxLength="80"
+                android:backgroundTint="@android:color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/textViewNumeroPredial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Número *"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/editNumeroPredial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/darker_gray"
+                android:inputType="number"
+                android:textSize="16sp"
+                android:maxLength="6"
+                android:backgroundTint="@android:color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/textViewBairro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bairro *"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/editBairro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/darker_gray"
+                android:inputType="textCapSentences"
+                android:textSize="16sp"
+                android:maxLength="80"
+                android:backgroundTint="@android:color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/textViewCidade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cidade *"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/editCidade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/darker_gray"
+                android:inputType="textCapSentences"
+                android:textSize="16sp"
+                android:maxLength="80"
+                android:backgroundTint="@android:color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/textViewUF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="UF *"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/editUF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/darker_gray"
+                android:inputType="textCapCharacters"
+                android:textSize="16sp"
+                android:maxLength="2"
+                android:backgroundTint="@android:color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="24dp"/>
+            <Button
+                android:id="@+id/buttonFinalizarCadastro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Finalizar Cadastro"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/bluedark"
+                android:backgroundTint="@color/bluebaby"
+                android:onClick="finalizarCadastro"
+                android:paddingHorizontal="32dp"
+                android:paddingVertical="12dp"
+                android:textSize="16sp"
+                app:cornerRadius="8dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

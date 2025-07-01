@@ -1,4 +1,4 @@
-package com.uniftec.loginexemplo.home;
+package com.uniftec.loginexemplo.home.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
