@@ -4,7 +4,6 @@ public class Evento {
     private long id;
     private String nome;
     private String descricao;
-    private String imagemPath;
     private String dataInicio;
     private String dataFim;
     private String horaInicio;
@@ -19,13 +18,12 @@ public class Evento {
 
     }
 
-    public Evento(long id, String nome, String descricao, String imagemPath, String dataInicio,
+    public Evento(long id, String nome, String descricao, String dataInicio,
                   String dataFim, String horaInicio, String horaFim, String rua,
                   String numero, String bairro, String cidade, String uf) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
-        this.imagemPath = imagemPath;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.horaInicio = horaInicio;
@@ -38,12 +36,11 @@ public class Evento {
     }
 
     // Construtor sem ID para quando o evento ainda não foi salvo no banco
-    public Evento(String nome, String descricao, String imagemPath, String dataInicio,
+    public Evento(String nome, String descricao, String dataInicio,
                   String dataFim, String horaInicio, String horaFim, String rua,
                   String numero, String bairro, String cidade, String uf) {
         this.nome = nome;
         this.descricao = descricao;
-        this.imagemPath = imagemPath;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.horaInicio = horaInicio;
@@ -61,8 +58,6 @@ public class Evento {
     public void setNome(String nome) { this.nome = nome; }
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
-    public String getImagemPath() { return imagemPath; }
-    public void setImagemPath(String imagemPath) { this.imagemPath = imagemPath; }
     public String getDataInicio() { return dataInicio; }
     public void setDataInicio(String dataInicio) { this.dataInicio = dataInicio; }
     public String getDataFim() { return dataFim; }

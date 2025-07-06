@@ -1,9 +1,12 @@
 package com.uniftec.loginexemplo;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -19,8 +22,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.uniftec.loginexemplo.home.HomeActivity;
+import com.uniftec.loginexemplo.perfil.EditarPerfilActivity;
 import com.uniftec.loginexemplo.sql.eventos.Evento;
 import com.uniftec.loginexemplo.sql.eventos.EventosDatabaseHelper;
+import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
 
 public class ActivityEvento extends AppCompatActivity {
 
@@ -29,8 +35,8 @@ public class ActivityEvento extends AppCompatActivity {
     private EditText editRua, editNumeroPredial, editBairro, editCidade, editUF;
     private Button buttonFinalizarCadastro;
     private AppCompatImageButton btnVoltarNovoEvento;
-    private Uri selectedImageUri;
     private EventosDatabaseHelper eventosDb;
+    private long USU_ID_SESSION = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,34 +49,41 @@ public class ActivityEvento extends AppCompatActivity {
             return insets;
         });
 
-        eventosDb = new EventosDatabaseHelper(this);
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("USU_ID_SESSION")) {
+            USU_ID_SESSION = intent.getLongExtra("USU_ID_SESSION", -1L);
+        }
 
+        inicializarComponentes();
+        configurarEventos(USU_ID_SESSION);
+
+        eventosDb = new EventosDatabaseHelper(this);
+    }
+
+    private void inicializarComponentes() {
         editNome = findViewById(R.id.editNome);
         editTextDescricao = findViewById(R.id.editTextDescricao);
-
         editDataInicio = findViewById(R.id.editDataInicio);
         editHoraInicio = findViewById(R.id.editHoraInicio);
         editDataFinal = findViewById(R.id.editDataFinal);
         editHoraFinal = findViewById(R.id.editHoraFinal);
-
         editRua = findViewById(R.id.editRua);
         editNumeroPredial = findViewById(R.id.editNumeroPredial);
         editBairro = findViewById(R.id.editBairro);
         editCidade = findViewById(R.id.editCidade);
         editUF = findViewById(R.id.editUF);
-
         buttonFinalizarCadastro = findViewById(R.id.buttonFinalizarCadastro);
         btnVoltarNovoEvento = findViewById(R.id.btnVoltarNovoEvento);
+    }
 
-        btnVoltarNovoEvento.setOnClickListener(v -> finish());
-
+    private void configurarEventos(long USU_ID_SESSION){
+        btnVoltarNovoEvento.setOnClickListener(v -> voltar(USU_ID_SESSION));
         buttonFinalizarCadastro.setOnClickListener(v -> finalizarCadastro());
     }
 
     private void finalizarCadastro() {
         String nome = editNome.getText().toString().trim();
         String descricao = editTextDescricao.getText().toString().trim();
-        String imagemPath = (selectedImageUri != null) ? selectedImageUri.toString() : "";
         String dataInicio = editDataInicio.getText().toString().trim();
         String horaInicio = editHoraInicio.getText().toString().trim();
         String dataFim = editDataFinal.getText().toString().trim();
@@ -139,7 +152,7 @@ public class ActivityEvento extends AppCompatActivity {
         }
 
         Evento novoEvento = new Evento(
-                nome, descricao, imagemPath, dataInicio, dataFim,
+                nome, descricao, dataInicio, dataFim,
                 horaInicio, horaFim, rua, numero, bairro, cidade, uf
         );
 
@@ -151,5 +164,12 @@ public class ActivityEvento extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Erro ao cadastrar evento.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void voltar(long USU_ID_SESSION) {
+        Intent intent = new Intent(ActivityEvento.this, HomeActivity.class);
+        intent.putExtra("USU_ID_SESSION", USU_ID_SESSION);
+        startActivity(intent);
+        finish();
     }
 }

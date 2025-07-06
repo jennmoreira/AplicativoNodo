@@ -5,12 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import com.uniftec.loginexemplo.Constants;
 
 public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "apkProjeto.db";
-    private static final int DATABASE_VERSION = 7;
-
+    private static final int DATABASE_VERSION = Constants.DATABASE_VERSION;
     public static final String TABLE_USERS = "USUARIOS";
     public static final String USU_ID = "id";
     public static final String USU_NOME = "name";

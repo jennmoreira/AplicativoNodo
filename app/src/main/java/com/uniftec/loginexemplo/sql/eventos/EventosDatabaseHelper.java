@@ -6,8 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
-import com.uniftec.loginexemplo.sql.eventos.Evento;
+import com.uniftec.loginexemplo.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +14,11 @@ import java.util.List;
 
 public class EventosDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "apkProjeto.db";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = Constants.DATABASE_VERSION;
     public static final String TABLE_EVENTS = "EVENTOS";
     public static final String EVE_ID = "id";
     public static final String EVE_NOME = "nome";
     public static final String EVE_DESCRICAO = "descricao";
-    public static final String EVE_IMAGEM_PATH = "imagem_path";
     public static final String EVE_DATA_INICIO = "data_inicio";
     public static final String EVE_DATA_FIM = "data_fim";
     public static final String EVE_HORA_INICIO = "hora_inicio";
@@ -36,7 +34,6 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
                     EVE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     EVE_NOME + " TEXT NOT NULL, " +
                     EVE_DESCRICAO + " TEXT, " +
-                    EVE_IMAGEM_PATH + " TEXT, " +
                     EVE_DATA_INICIO + " TEXT NOT NULL, " +
                     EVE_DATA_FIM + " TEXT NOT NULL, " +
                     EVE_HORA_INICIO + " TEXT NOT NULL, " +
@@ -70,7 +67,6 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(EVE_NOME, evento.getNome());
         values.put(EVE_DESCRICAO, evento.getDescricao());
-        values.put(EVE_IMAGEM_PATH, evento.getImagemPath());
         values.put(EVE_DATA_INICIO, evento.getDataInicio());
         values.put(EVE_DATA_FIM, evento.getDataFim());
         values.put(EVE_HORA_INICIO, evento.getHoraInicio());
@@ -99,7 +95,7 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         Evento evento = null;
 
         String[] columns = {
-                EVE_ID, EVE_NOME, EVE_DESCRICAO, EVE_IMAGEM_PATH,
+                EVE_ID, EVE_NOME, EVE_DESCRICAO,
                 EVE_DATA_INICIO, EVE_DATA_FIM, EVE_HORA_INICIO, EVE_HORA_FIM,
                 EVE_RUA, EVE_NUMERO, EVE_BAIRRO, EVE_CIDADE, EVE_UF
         };
@@ -113,7 +109,6 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow(EVE_ID));
                 String nome = cursor.getString(cursor.getColumnIndexOrThrow(EVE_NOME));
                 String descricao = cursor.getString(cursor.getColumnIndexOrThrow(EVE_DESCRICAO));
-                String imagemPath = cursor.getString(cursor.getColumnIndexOrThrow(EVE_IMAGEM_PATH));
                 String dataInicio = cursor.getString(cursor.getColumnIndexOrThrow(EVE_DATA_INICIO));
                 String dataFim = cursor.getString(cursor.getColumnIndexOrThrow(EVE_DATA_FIM));
                 String horaInicio = cursor.getString(cursor.getColumnIndexOrThrow(EVE_HORA_INICIO));
@@ -124,7 +119,7 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
                 String cidade = cursor.getString(cursor.getColumnIndexOrThrow(EVE_CIDADE));
                 String uf = cursor.getString(cursor.getColumnIndexOrThrow(EVE_UF));
 
-                evento = new Evento(id, nome, descricao, imagemPath, dataInicio,
+                evento = new Evento(id, nome, descricao, dataInicio,
                         dataFim, horaInicio, horaFim, rua, numero, bairro, cidade, uf);
             }
         } catch (Exception e) {
@@ -144,7 +139,6 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
 
         values.put(EVE_NOME, evento.getNome());
         values.put(EVE_DESCRICAO, evento.getDescricao());
-        values.put(EVE_IMAGEM_PATH, evento.getImagemPath());
         values.put(EVE_DATA_INICIO, evento.getDataInicio());
         values.put(EVE_DATA_FIM, evento.getDataFim());
         values.put(EVE_HORA_INICIO, evento.getHoraInicio());
@@ -193,7 +187,7 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
 
         String[] columns = {
-                EVE_ID, EVE_NOME, EVE_DESCRICAO, EVE_IMAGEM_PATH,
+                EVE_ID, EVE_NOME, EVE_DESCRICAO,
                 EVE_DATA_INICIO, EVE_DATA_FIM, EVE_HORA_INICIO, EVE_HORA_FIM,
                 EVE_RUA, EVE_NUMERO, EVE_BAIRRO, EVE_CIDADE, EVE_UF
         };
@@ -206,7 +200,6 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
                     long id = cursor.getLong(cursor.getColumnIndex(EVE_ID));
                     String nome = cursor.getString(cursor.getColumnIndex(EVE_NOME));
                     String descricao = cursor.getString(cursor.getColumnIndex(EVE_DESCRICAO));
-                    String imagemPath = cursor.getString(cursor.getColumnIndex(EVE_IMAGEM_PATH));
                     String dataInicio = cursor.getString(cursor.getColumnIndex(EVE_DATA_INICIO));
                     String dataFim = cursor.getString(cursor.getColumnIndex(EVE_DATA_FIM));
                     String horaInicio = cursor.getString(cursor.getColumnIndex(EVE_HORA_INICIO));
@@ -217,7 +210,7 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
                     String cidade = cursor.getString(cursor.getColumnIndex(EVE_CIDADE));
                     String uf = cursor.getString(cursor.getColumnIndex(EVE_UF));
 
-                    Evento evento = new Evento(id, nome, descricao, imagemPath, dataInicio,
+                    Evento evento = new Evento(id, nome, descricao, dataInicio,
                             dataFim, horaInicio, horaFim, rua, numero, bairro, cidade, uf);
                     eventosList.add(evento);
                 } while (cursor.moveToNext());
@@ -243,7 +236,6 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         ContentValues values1 = new ContentValues();
         values1.put(EVE_NOME, "Feira de Tecnologia 2025");
         values1.put(EVE_DESCRICAO, "A maior feira de tecnologia do sul do país.");
-        values1.put(EVE_IMAGEM_PATH, "android.resource://com.uniftec.loginexemplo/drawable/placeholder_tech"); // Exemplo de path
         values1.put(EVE_DATA_INICIO, "2025-08-20");
         values1.put(EVE_DATA_FIM, "2025-08-22");
         values1.put(EVE_HORA_INICIO, "09:00");
@@ -259,7 +251,6 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         ContentValues values2 = new ContentValues();
         values2.put(EVE_NOME, "Workshop de Fotografia Noturna");
         values2.put(EVE_DESCRICAO, "Aprenda técnicas de fotografia em ambientes com pouca luz.");
-        values2.put(EVE_IMAGEM_PATH, "android.resource://com.uniftec.loginexemplo/drawable/placeholder_photo");
         values2.put(EVE_DATA_INICIO, "2025-09-05");
         values2.put(EVE_DATA_FIM, "2025-09-05");
         values2.put(EVE_HORA_INICIO, "19:00");
@@ -275,7 +266,6 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         ContentValues values3 = new ContentValues();
         values3.put(EVE_NOME, "Festival de Cerveja Artesanal");
         values3.put(EVE_DESCRICAO, "Degustação de cervejas locais e nacionais.");
-        values3.put(EVE_IMAGEM_PATH, "android.resource://com.uniftec.loginexemplo/drawable/placeholder_beer");
         values3.put(EVE_DATA_INICIO, "2025-10-12");
         values3.put(EVE_DATA_FIM, "2025-10-13");
         values3.put(EVE_HORA_INICIO, "14:00");
