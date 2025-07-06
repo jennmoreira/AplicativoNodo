@@ -350,6 +350,56 @@
                 android:backgroundTint="@android:color/white"
                 android:padding="12dp"
                 android:layout_marginBottom="24dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Categorias do Evento:"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp"/>
+
+            <CheckBox
+                android:id="@+id/checkSeguranca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Segurança"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"
+                android:buttonTint="@color/bluelight"/>
+
+            <CheckBox
+                android:id="@+id/checkLimpeza"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Limpeza"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"
+                android:buttonTint="@color/bluelight"/>
+
+            <CheckBox
+                android:id="@+id/checkInfraestrutura"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Infraestrutura"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"
+                android:buttonTint="@color/bluelight"/>
+
+            <CheckBox
+                android:id="@+id/checkOutros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Outros"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="24dp"
+                android:buttonTint="@color/bluelight"/>
+
             <Button
                 android:id="@+id/buttonFinalizarCadastro"
                 android:layout_width="wrap_content"
@@ -358,7 +408,6 @@
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/bluedark"
                 android:backgroundTint="@color/bluebaby"
-                android:onClick="finalizarCadastro"
                 android:paddingHorizontal="32dp"
                 android:paddingVertical="12dp"
                 android:textSize="16sp"

@@ -3,6 +3,7 @@ package com.uniftec.loginexemplo.evento;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -26,8 +27,9 @@ public class ActivityEvento extends AppCompatActivity {
     private Button buttonFinalizarCadastro;
     private AppCompatImageButton btnVoltarNovoEvento;
     private EventosDatabaseHelper eventosDb;
-    private long pEVE_ID = -1; // Variável para armazenar o ID do evento, se estiver editando
+    private long pEVE_ID = -1;
     private long USU_ID_SESSION = -1;
+    private CheckBox checkSeguranca, checkLimpeza, checkInfraestrutura, checkOutros;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,10 @@ public class ActivityEvento extends AppCompatActivity {
         editBairro = findViewById(R.id.editBairro);
         editCidade = findViewById(R.id.editCidade);
         editUF = findViewById(R.id.editUF);
+        checkSeguranca = findViewById(R.id.checkSeguranca);
+        checkLimpeza = findViewById(R.id.checkLimpeza);
+        checkInfraestrutura = findViewById(R.id.checkInfraestrutura);
+        checkOutros = findViewById(R.id.checkOutros);
         buttonFinalizarCadastro = findViewById(R.id.buttonFinalizarCadastro);
         btnVoltarNovoEvento = findViewById(R.id.btnVoltarNovoEvento);
     }
@@ -91,7 +97,11 @@ public class ActivityEvento extends AppCompatActivity {
             editBairro.setText(evento.getBairro());
             editCidade.setText(evento.getCidade());
             editUF.setText(evento.getUf());
-            buttonFinalizarCadastro.setText("Atualizar Evento"); // Altera o texto do botão
+            checkSeguranca.setChecked(evento.getCatSeguranca() == 1);
+            checkLimpeza.setChecked(evento.getCatLimpeza() == 1);
+            checkInfraestrutura.setChecked(evento.getCatInfraestrutura() == 1);
+            checkOutros.setChecked(evento.getCatOutros() == 1);
+            buttonFinalizarCadastro.setText("Atualizar Evento");
         } else {
             Toast.makeText(this, "Evento não encontrado.", Toast.LENGTH_SHORT).show();
             finish();
@@ -110,6 +120,10 @@ public class ActivityEvento extends AppCompatActivity {
         String bairro = editBairro.getText().toString().trim();
         String cidade = editCidade.getText().toString().trim();
         String uf = editUF.getText().toString().trim();
+        int catSeguranca = checkSeguranca.isChecked() ? 1 : 0;
+        int catLimpeza = checkLimpeza.isChecked() ? 1 : 0;
+        int catInfraestrutura = checkInfraestrutura.isChecked() ? 1 : 0;
+        int catOutros = checkOutros.isChecked() ? 1 : 0;
 
         if (nome.isEmpty() || descricao.isEmpty() || dataInicio.isEmpty() ||
                 horaInicio.isEmpty() || dataFim.isEmpty() || horaFim.isEmpty() ||
@@ -126,7 +140,8 @@ public class ActivityEvento extends AppCompatActivity {
 
         Evento evento = new Evento(
                 nome, descricao, dataInicio, dataFim,
-                horaInicio, horaFim, rua, numero, bairro, cidade, uf
+                horaInicio, horaFim, rua, numero, bairro, cidade, uf,
+                catSeguranca, catLimpeza, catInfraestrutura, catOutros
         );
 
         boolean sucesso;

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class EventosDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "apkProjeto.db";
-    private static final int DATABASE_VERSION = 91;
+    private static final int DATABASE_VERSION = 94;
     public static final String TABLE_EVENTS = "EVENTOS";
     public static final String EVE_ID = "id";
     public static final String EVE_NOME = "nome";
@@ -26,6 +26,10 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
     public static final String EVE_BAIRRO = "bairro";
     public static final String EVE_CIDADE = "cidade";
     public static final String EVE_UF = "uf";
+    public static final String EVE_CAT_SEG = "categoria_seguranca";
+    public static final String EVE_CAT_LIM = "categoria_limpeza";
+    public static final String EVE_CAT_INF = "categoria_infraestrutura";
+    public static final String EVE_CAT_OUT = "categoria_outros";
 
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_EVENTS + " (" +
@@ -40,7 +44,11 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
                     EVE_NUMERO + " TEXT, " +
                     EVE_BAIRRO + " TEXT, " +
                     EVE_CIDADE + " TEXT, " +
-                    EVE_UF + " TEXT" +
+                    EVE_UF + " TEXT, " +
+                    EVE_CAT_SEG + " INTEGER DEFAULT 0, " +
+                    EVE_CAT_LIM + " INTEGER DEFAULT 0, " +
+                    EVE_CAT_INF + " INTEGER DEFAULT 0, " +
+                    EVE_CAT_OUT + " INTEGER DEFAULT 0" +
                     ");";
 
     public EventosDatabaseHelper(Context context) {
@@ -51,7 +59,6 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL(TABLE_CREATE);
-
             if (tabelaExiste(db, TABLE_EVENTS)) {
                 inserirDadosDeTeste(db);
             }
@@ -69,13 +76,10 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
             }
 
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENTS);
-
             onCreate(db);
-
             if (!eventosBackup.isEmpty()) {
                 restaurarEventosDoBackup(db, eventosBackup);
             }
-
         } catch (Exception e) {
             throw new RuntimeException("Falha no upgrade do banco", e);
         }
@@ -116,8 +120,26 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
                     String cidade = cursor.getString(cursor.getColumnIndexOrThrow(EVE_CIDADE));
                     String uf = cursor.getString(cursor.getColumnIndexOrThrow(EVE_UF));
 
+                    int catSeguranca = 0;
+                    if (cursor.getColumnIndex(EVE_CAT_SEG) != -1) {
+                        catSeguranca = cursor.getInt(cursor.getColumnIndexOrThrow(EVE_CAT_SEG));
+                    }
+                    int catLimpeza = 0;
+                    if (cursor.getColumnIndex(EVE_CAT_LIM) != -1) {
+                        catLimpeza = cursor.getInt(cursor.getColumnIndexOrThrow(EVE_CAT_LIM));
+                    }
+                    int catInfraestrutura = 0;
+                    if (cursor.getColumnIndex(EVE_CAT_INF) != -1) {
+                        catInfraestrutura = cursor.getInt(cursor.getColumnIndexOrThrow(EVE_CAT_INF));
+                    }
+                    int catOutros = 0;
+                    if (cursor.getColumnIndex(EVE_CAT_OUT) != -1) {
+                        catOutros = cursor.getInt(cursor.getColumnIndexOrThrow(EVE_CAT_OUT));
+                    }
+
                     Evento evento = new Evento(id, nome, descricao, dataInicio,
-                            dataFim, horaInicio, horaFim, rua, numero, bairro, cidade, uf);
+                            dataFim, horaInicio, horaFim, rua, numero, bairro, cidade, uf,
+                            catSeguranca, catLimpeza, catInfraestrutura, catOutros);
                     eventos.add(evento);
                 } while (cursor.moveToNext());
             }
@@ -143,6 +165,10 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
             values.put(EVE_BAIRRO, evento.getBairro());
             values.put(EVE_CIDADE, evento.getCidade());
             values.put(EVE_UF, evento.getUf());
+            values.put(EVE_CAT_SEG, evento.getCatSeguranca());
+            values.put(EVE_CAT_LIM, evento.getCatLimpeza());
+            values.put(EVE_CAT_INF, evento.getCatInfraestrutura());
+            values.put(EVE_CAT_OUT, evento.getCatOutros());
 
             db.insert(TABLE_EVENTS, null, values);
         }
@@ -152,11 +178,9 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = null;
         try {
             db = this.getWritableDatabase();
-
             if (!tabelaExiste(db, TABLE_EVENTS)) {
                 onCreate(db);
             }
-
             ContentValues values = new ContentValues();
             values.put(EVE_NOME, evento.getNome());
             values.put(EVE_DESCRICAO, evento.getDescricao());
@@ -169,6 +193,10 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
             values.put(EVE_BAIRRO, evento.getBairro());
             values.put(EVE_CIDADE, evento.getCidade());
             values.put(EVE_UF, evento.getUf());
+            values.put(EVE_CAT_SEG, evento.getCatSeguranca());
+            values.put(EVE_CAT_LIM, evento.getCatLimpeza());
+            values.put(EVE_CAT_INF, evento.getCatInfraestrutura());
+            values.put(EVE_CAT_OUT, evento.getCatOutros());
 
             long result = db.insert(TABLE_EVENTS, null, values);
             return result;
@@ -188,7 +216,6 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
 
         try {
             db = this.getReadableDatabase();
-
             if (!tabelaExiste(db, TABLE_EVENTS)) {
                 return null;
             }
@@ -196,7 +223,8 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
             String[] columns = {
                     EVE_ID, EVE_NOME, EVE_DESCRICAO,
                     EVE_DATA_INICIO, EVE_DATA_FIM, EVE_HORA_INICIO, EVE_HORA_FIM,
-                    EVE_RUA, EVE_NUMERO, EVE_BAIRRO, EVE_CIDADE, EVE_UF
+                    EVE_RUA, EVE_NUMERO, EVE_BAIRRO, EVE_CIDADE, EVE_UF,
+                    EVE_CAT_SEG, EVE_CAT_LIM, EVE_CAT_INF, EVE_CAT_OUT
             };
             String selection = EVE_ID + " = ?";
             String[] selectionArgs = { String.valueOf(pEVE_ID) };
@@ -216,9 +244,14 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
                 String bairro = cursor.getString(cursor.getColumnIndexOrThrow(EVE_BAIRRO));
                 String cidade = cursor.getString(cursor.getColumnIndexOrThrow(EVE_CIDADE));
                 String uf = cursor.getString(cursor.getColumnIndexOrThrow(EVE_UF));
+                int catSeguranca = cursor.getInt(cursor.getColumnIndexOrThrow(EVE_CAT_SEG));
+                int catLimpeza = cursor.getInt(cursor.getColumnIndexOrThrow(EVE_CAT_LIM));
+                int catInfraestrutura = cursor.getInt(cursor.getColumnIndexOrThrow(EVE_CAT_INF));
+                int catOutros = cursor.getInt(cursor.getColumnIndexOrThrow(EVE_CAT_OUT));
 
                 evento = new Evento(id, nome, descricao, dataInicio,
-                        dataFim, horaInicio, horaFim, rua, numero, bairro, cidade, uf);
+                        dataFim, horaInicio, horaFim, rua, numero, bairro, cidade, uf,
+                        catSeguranca, catLimpeza, catInfraestrutura, catOutros);
             }
         } finally {
             if (cursor != null) {
@@ -235,11 +268,9 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = null;
         try {
             db = this.getWritableDatabase();
-
             if (!tabelaExiste(db, TABLE_EVENTS)) {
                 return false;
             }
-
             ContentValues values = new ContentValues();
             values.put(EVE_NOME, evento.getNome());
             values.put(EVE_DESCRICAO, evento.getDescricao());
@@ -252,6 +283,10 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
             values.put(EVE_BAIRRO, evento.getBairro());
             values.put(EVE_CIDADE, evento.getCidade());
             values.put(EVE_UF, evento.getUf());
+            values.put(EVE_CAT_SEG, evento.getCatSeguranca());
+            values.put(EVE_CAT_LIM, evento.getCatLimpeza());
+            values.put(EVE_CAT_INF, evento.getCatInfraestrutura());
+            values.put(EVE_CAT_OUT, evento.getCatOutros());
 
             String selection = EVE_ID + " = ?";
             String[] selectionArgs = { String.valueOf(evento.getId()) };
@@ -271,11 +306,9 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = null;
         try {
             db = this.getWritableDatabase();
-
             if (!tabelaExiste(db, TABLE_EVENTS)) {
                 return false;
             }
-
             String selection = EVE_ID + " = ?";
             String[] selectionArgs = { String.valueOf(pEVE_ID) };
 
@@ -297,7 +330,6 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
 
         try {
             db = this.getReadableDatabase();
-
             if (!tabelaExiste(db, TABLE_EVENTS)) {
                 return eventosList;
             }
@@ -305,7 +337,8 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
             String[] columns = {
                     EVE_ID, EVE_NOME, EVE_DESCRICAO,
                     EVE_DATA_INICIO, EVE_DATA_FIM, EVE_HORA_INICIO, EVE_HORA_FIM,
-                    EVE_RUA, EVE_NUMERO, EVE_BAIRRO, EVE_CIDADE, EVE_UF
+                    EVE_RUA, EVE_NUMERO, EVE_BAIRRO, EVE_CIDADE, EVE_UF,
+                    EVE_CAT_SEG, EVE_CAT_LIM, EVE_CAT_INF, EVE_CAT_OUT
             };
 
             cursor = db.query(TABLE_EVENTS, columns, null, null, null, null, null);
@@ -324,9 +357,14 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
                     String bairro = cursor.getString(cursor.getColumnIndexOrThrow(EVE_BAIRRO));
                     String cidade = cursor.getString(cursor.getColumnIndexOrThrow(EVE_CIDADE));
                     String uf = cursor.getString(cursor.getColumnIndexOrThrow(EVE_UF));
+                    int catSeguranca = cursor.getInt(cursor.getColumnIndexOrThrow(EVE_CAT_SEG));
+                    int catLimpeza = cursor.getInt(cursor.getColumnIndexOrThrow(EVE_CAT_LIM));
+                    int catInfraestrutura = cursor.getInt(cursor.getColumnIndexOrThrow(EVE_CAT_INF));
+                    int catOutros = cursor.getInt(cursor.getColumnIndexOrThrow(EVE_CAT_OUT));
 
                     Evento evento = new Evento(id, nome, descricao, dataInicio,
-                            dataFim, horaInicio, horaFim, rua, numero, bairro, cidade, uf);
+                            dataFim, horaInicio, horaFim, rua, numero, bairro, cidade, uf,
+                            catSeguranca, catLimpeza, catInfraestrutura, catOutros);
                     eventosList.add(evento);
                 } while (cursor.moveToNext());
             }
@@ -355,6 +393,10 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         values1.put(EVE_BAIRRO, "Tecnoparque");
         values1.put(EVE_CIDADE, "Caxias do Sul");
         values1.put(EVE_UF, "RS");
+        values1.put(EVE_CAT_SEG, 1);
+        values1.put(EVE_CAT_LIM, 0);
+        values1.put(EVE_CAT_INF, 1);
+        values1.put(EVE_CAT_OUT, 0);
         long result1 = db.insert(TABLE_EVENTS, null, values1);
 
         ContentValues values2 = new ContentValues();
@@ -369,6 +411,10 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         values2.put(EVE_BAIRRO, "Centro Histórico");
         values2.put(EVE_CIDADE, "Porto Alegre");
         values2.put(EVE_UF, "RS");
+        values2.put(EVE_CAT_SEG, 0);
+        values2.put(EVE_CAT_LIM, 0);
+        values2.put(EVE_CAT_INF, 0);
+        values2.put(EVE_CAT_OUT, 1);
         long result2 = db.insert(TABLE_EVENTS, null, values2);
 
         ContentValues values3 = new ContentValues();
@@ -383,6 +429,10 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         values3.put(EVE_BAIRRO, "Floresta");
         values3.put(EVE_CIDADE, "Gramado");
         values3.put(EVE_UF, "RS");
+        values3.put(EVE_CAT_SEG, 1);
+        values3.put(EVE_CAT_LIM, 1);
+        values3.put(EVE_CAT_INF, 0);
+        values3.put(EVE_CAT_OUT, 0);
         long result3 = db.insert(TABLE_EVENTS, null, values3);
     }
 }

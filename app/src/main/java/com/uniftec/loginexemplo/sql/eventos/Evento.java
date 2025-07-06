@@ -13,6 +13,10 @@ public class Evento {
     private String bairro;
     private String cidade;
     private String uf;
+    private int catSeguranca;
+    private int catLimpeza;
+    private int catInfraestrutura;
+    private int catOutros;
 
     public Evento() {
 
@@ -20,7 +24,8 @@ public class Evento {
 
     public Evento(long id, String nome, String descricao, String dataInicio,
                   String dataFim, String horaInicio, String horaFim, String rua,
-                  String numero, String bairro, String cidade, String uf) {
+                  String numero, String bairro, String cidade, String uf,
+                  int catSeguranca, int catLimpeza, int catInfraestrutura, int catOutros) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -33,12 +38,16 @@ public class Evento {
         this.bairro = bairro;
         this.cidade = cidade;
         this.uf = uf;
+        this.catSeguranca = catSeguranca;
+        this.catLimpeza = catLimpeza;
+        this.catInfraestrutura = catInfraestrutura;
+        this.catOutros = catOutros;
     }
 
-    // Construtor sem ID para quando o evento ainda não foi salvo no banco
     public Evento(String nome, String descricao, String dataInicio,
                   String dataFim, String horaInicio, String horaFim, String rua,
-                  String numero, String bairro, String cidade, String uf) {
+                  String numero, String bairro, String cidade, String uf,
+                  int catSeguranca, int catLimpeza, int catInfraestrutura, int catOutros) {
         this.nome = nome;
         this.descricao = descricao;
         this.dataInicio = dataInicio;
@@ -50,6 +59,10 @@ public class Evento {
         this.bairro = bairro;
         this.cidade = cidade;
         this.uf = uf;
+        this.catSeguranca = catSeguranca;
+        this.catLimpeza = catLimpeza;
+        this.catInfraestrutura = catInfraestrutura;
+        this.catOutros = catOutros;
     }
     
     public long getId() { return id; }
@@ -76,4 +89,12 @@ public class Evento {
     public void setCidade(String cidade) { this.cidade = cidade; }
     public String getUf() { return uf; }
     public void setUf(String uf) { this.uf = uf; }
+    public int getCatSeguranca() { return catSeguranca; }
+    public void setCatSeguranca(int catSeguranca) { this.catSeguranca = catSeguranca; }
+    public int getCatLimpeza() { return catLimpeza; }
+    public void setCatLimpeza(int catLimpeza) { this.catLimpeza = catLimpeza; }
+    public int getCatInfraestrutura() { return catInfraestrutura; }
+    public void setCatInfraestrutura(int catInfraestrutura) { this.catInfraestrutura = catInfraestrutura; }
+    public int getCatOutros() { return catOutros; }
+    public void setCatOutros(int catOutros) { this.catOutros = catOutros; }
 }
