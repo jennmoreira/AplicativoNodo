@@ -19,7 +19,6 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:contentDescription="@string/voltar"
-            android:onClick="Voltar"
             android:src="@drawable/image_voltar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,8 +30,8 @@
         <View
             android:id="@+id/components"
             style="@style/ContainerComponents"
-            android:layout_width="357dp"
-            android:layout_height="427dp"
+            android:layout_width="365dp"
+            android:layout_height="526dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,15 +81,46 @@
             app:layout_constraintEnd_toEndOf="@id/components"
             android:layout_marginTop="12dp" />
 
+        <RadioGroup
+            android:id="@+id/radioGroupTipoUsuario"
+            android:layout_width="314dp"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/components"
+            app:layout_constraintEnd_toEndOf="@+id/components"
+            app:layout_constraintStart_toStartOf="@+id/components"
+            app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPassword"
+            app:layout_constraintVertical_bias="0.108">
+
+            <RadioButton
+                android:id="@+id/radioCriador"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Criador de Eventos"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/radioPrestador"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prestador de Serviço"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+        </RadioGroup>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnCriar"
             style="@style/ButtomLogin"
             android:layout_width="306dp"
             android:layout_height="61dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="128dp"
             android:backgroundTint="@color/green"
             android:text="@string/criar_conta"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.457"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editTextConfirmPassword" />
 

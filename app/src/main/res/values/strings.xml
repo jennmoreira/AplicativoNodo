@@ -62,5 +62,6 @@
     <string name="senha">Senha</string>
     <string name="criar_conta">Criar Conta</string>
     <string name="confirmar_senha">Confirmar Senha</string>
+    <string name="selecione_o_tipo_de_usuario">Selecione o tipo de usuário</string>
 
 </resources>

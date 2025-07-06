@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -19,6 +21,8 @@ public class CadastroActivity extends AppCompatActivity {
     private EditText editName, editEmail, editPassword, editConfirmPassword;
     private Button btnVoltar, btnCriar;
     private UsuariosDatabaseHelper dbHelper;
+    private RadioGroup radioGroupTipoUsuario;
+    private RadioButton radioCriador, radioPrestador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,9 @@ public class CadastroActivity extends AppCompatActivity {
         editConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         btnCriar = findViewById(R.id.btnCriar);
         btnVoltar = findViewById(R.id.btnVoltar);
+        radioGroupTipoUsuario = findViewById(R.id.radioGroupTipoUsuario);
+        radioCriador = findViewById(R.id.radioCriador);
+        radioPrestador = findViewById(R.id.radioPrestador);
     }
 
     private void configurarEventos() {
@@ -52,11 +59,21 @@ public class CadastroActivity extends AppCompatActivity {
         String password = editPassword.getText().toString().trim();
         String confirmPassword = editConfirmPassword.getText().toString().trim();
 
+        String tipoUsuario;
+        if (radioCriador.isChecked()) {
+            tipoUsuario = "criador";
+        } else if (radioPrestador.isChecked()) {
+            tipoUsuario = "prestador";
+        } else {
+            Toast.makeText(this, getString(R.string.selecione_o_tipo_de_usuario), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (!validarCampos(name, email, password, confirmPassword)) {
             return;
         }
 
-        if (salvarUsuario(name, email, password)) {
+        if (salvarUsuario(name, email, password, tipoUsuario)) {
             Toast.makeText(this, getString(R.string.cadastro_realizado_com_suceso_faca_login_continuar), Toast.LENGTH_LONG).show();
             abrirTelaLogin();
             finish();
@@ -109,15 +126,14 @@ public class CadastroActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean salvarUsuario(String name, String email, String password) {
-
+    private boolean salvarUsuario(String name, String email, String password, String tipoUsuario) {
         try {
             if (dbHelper.validaEmailUtilizado(email)) {
                 editEmail.setError(getString(R.string.email_ja_cadastrado));
                 return false;
             }
 
-            return dbHelper.criarUsuario(name, email, password);
+            return dbHelper.criarUsuario(name, email, password, tipoUsuario);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,5 +147,4 @@ public class CadastroActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 }

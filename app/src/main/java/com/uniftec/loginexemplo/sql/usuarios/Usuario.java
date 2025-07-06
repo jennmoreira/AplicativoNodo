@@ -8,8 +8,9 @@ public class Usuario {
     private String endereco;
     private String estado;
     private String cidade;
+    private String tipoUsuario;
 
-    public Usuario(long id, String nome, String email, String telefone, String endereco, String estado, String cidade) {
+    public Usuario(long id, String nome, String email, String telefone, String endereco, String estado, String cidade, String tipoUsuario) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -17,6 +18,7 @@ public class Usuario {
         this.endereco = endereco;
         this.estado = estado;
         this.cidade = cidade;
+        this.tipoUsuario = tipoUsuario;
     }
 
     // Getters e Setters
@@ -34,4 +36,6 @@ public class Usuario {
     public void setEstado(String estado) { this.estado = estado; }
     public String getCidade() { return cidade; }
     public void setCidade(String cidade) { this.cidade = cidade; }
+    public String getTipoUsuario() { return tipoUsuario; }
+    public void setTipoUsuario(String tipoUsuario) { this.tipoUsuario = tipoUsuario; }
 }

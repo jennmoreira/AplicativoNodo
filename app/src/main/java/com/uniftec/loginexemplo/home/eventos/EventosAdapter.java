@@ -32,7 +32,7 @@ public class EventosAdapter extends ArrayAdapter<Evento> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View listItem = convertView;
         if (listItem == null) {
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
+            listItem = LayoutInflater.from(mContext).inflate(R.layout.list_evento_criador, parent, false);
         }
 
         Evento currentEvento = mEventosList.get(position);

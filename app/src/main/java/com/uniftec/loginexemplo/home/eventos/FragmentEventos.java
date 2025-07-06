@@ -28,8 +28,15 @@ public class FragmentEventos extends Fragment {
     private List<Evento> eventos;
     private EventosAdapter adapter;
     private EventosDatabaseHelper eventosDb;
+    private long USU_ID_SESSION = -1;
 
-    public FragmentEventos() {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            USU_ID_SESSION = getArguments().getLong("USU_ID_SESSION", -1L);
+        }
     }
 
     @Override
