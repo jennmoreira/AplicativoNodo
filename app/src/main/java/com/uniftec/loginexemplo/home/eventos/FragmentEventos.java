@@ -18,6 +18,7 @@ import com.uniftec.loginexemplo.evento.ActivityEvento;
 import com.uniftec.loginexemplo.R;
 import com.uniftec.loginexemplo.sql.eventos.Evento;
 import com.uniftec.loginexemplo.sql.eventos.EventosDatabaseHelper;
+import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,9 @@ public class FragmentEventos extends Fragment {
     private List<Evento> eventos;
     private EventosAdapter adapter;
     private EventosDatabaseHelper eventosDb;
+    private UsuariosDatabaseHelper usuariosDb;
     private long USU_ID_SESSION = -1;
+    private String tipoUsuarioLogado = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,10 +49,15 @@ public class FragmentEventos extends Fragment {
         View view = inflater.inflate(R.layout.fragment_eventos, container, false);
 
         eventosDb = new EventosDatabaseHelper(getContext());
+        usuariosDb = new UsuariosDatabaseHelper(getContext());
         eventos = new ArrayList<>();
 
+        if (USU_ID_SESSION != -1) {
+            tipoUsuarioLogado = usuariosDb.getTipoUsuario(USU_ID_SESSION);
+        }
+
         ListView listaEventos = view.findViewById(R.id.lista_eventos);
-        adapter = new EventosAdapter(getContext(), eventos);
+        adapter = new EventosAdapter(getContext(), eventos, tipoUsuarioLogado);
         listaEventos.setAdapter(adapter);
 
         carregarEventosDoBanco();
@@ -62,10 +70,15 @@ public class FragmentEventos extends Fragment {
         });
 
         FloatingActionButton btnAdicionar = view.findViewById(R.id.btnAdicionarEvento);
-        btnAdicionar.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), ActivityEvento.class);
-            startActivityForResult(intent, REQUEST_NOVO_EVENTO);
-        });
+        if ("criador".equals(tipoUsuarioLogado)) {
+            btnAdicionar.setVisibility(View.VISIBLE);
+            btnAdicionar.setOnClickListener(v -> {
+                Intent intent = new Intent(getActivity(), ActivityEvento.class);
+                startActivityForResult(intent, REQUEST_NOVO_EVENTO);
+            });
+        } else {
+            btnAdicionar.setVisibility(View.GONE);
+        }
 
         return view;
     }
