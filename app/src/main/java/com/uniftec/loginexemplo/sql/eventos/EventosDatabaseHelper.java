@@ -6,15 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import com.uniftec.loginexemplo.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class EventosDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "apkProjeto.db";
-    private static final int DATABASE_VERSION = Constants.DATABASE_VERSION;
+    private static final int DATABASE_VERSION = 91;
     public static final String TABLE_EVENTS = "EVENTOS";
     public static final String EVE_ID = "id";
     public static final String EVE_NOME = "nome";
@@ -42,7 +40,8 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
                     EVE_NUMERO + " TEXT, " +
                     EVE_BAIRRO + " TEXT, " +
                     EVE_CIDADE + " TEXT, " +
-                    EVE_UF + " TEXT);";
+                    EVE_UF + " TEXT" +
+                    ");";
 
     public EventosDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -50,59 +49,158 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(TABLE_CREATE);
-        Log.d("EventosDB", "Tabela EVENTOS criada.");
-        inserirDadosDeTeste(db); // Chama o método para inserir dados de teste
+        try {
+            db.execSQL(TABLE_CREATE);
+
+            if (tabelaExiste(db, TABLE_EVENTS)) {
+                inserirDadosDeTeste(db);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Falha ao criar tabela EVENTOS", e);
+        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d("EventosDB", "Atualizando banco de dados de versão " + oldVersion + " para " + newVersion);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENTS);
-        onCreate(db);
+        try {
+            List<Evento> eventosBackup = new ArrayList<>();
+            if (tabelaExiste(db, TABLE_EVENTS)) {
+                eventosBackup = obterEventosParaBackup(db);
+            }
+
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENTS);
+
+            onCreate(db);
+
+            if (!eventosBackup.isEmpty()) {
+                restaurarEventosDoBackup(db, eventosBackup);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Falha no upgrade do banco", e);
+        }
+    }
+
+    private boolean tabelaExiste(SQLiteDatabase db, String nomeTabela) {
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+                    new String[]{nomeTabela});
+            return cursor != null && cursor.getCount() > 0;
+        } catch (Exception e) {
+            return false;
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
+    private List<Evento> obterEventosParaBackup(SQLiteDatabase db) {
+        List<Evento> eventos = new ArrayList<>();
+        Cursor cursor = null;
+        try {
+            cursor = db.query(TABLE_EVENTS, null, null, null, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    long id = cursor.getLong(cursor.getColumnIndexOrThrow(EVE_ID));
+                    String nome = cursor.getString(cursor.getColumnIndexOrThrow(EVE_NOME));
+                    String descricao = cursor.getString(cursor.getColumnIndexOrThrow(EVE_DESCRICAO));
+                    String dataInicio = cursor.getString(cursor.getColumnIndexOrThrow(EVE_DATA_INICIO));
+                    String dataFim = cursor.getString(cursor.getColumnIndexOrThrow(EVE_DATA_FIM));
+                    String horaInicio = cursor.getString(cursor.getColumnIndexOrThrow(EVE_HORA_INICIO));
+                    String horaFim = cursor.getString(cursor.getColumnIndexOrThrow(EVE_HORA_FIM));
+                    String rua = cursor.getString(cursor.getColumnIndexOrThrow(EVE_RUA));
+                    String numero = cursor.getString(cursor.getColumnIndexOrThrow(EVE_NUMERO));
+                    String bairro = cursor.getString(cursor.getColumnIndexOrThrow(EVE_BAIRRO));
+                    String cidade = cursor.getString(cursor.getColumnIndexOrThrow(EVE_CIDADE));
+                    String uf = cursor.getString(cursor.getColumnIndexOrThrow(EVE_UF));
+
+                    Evento evento = new Evento(id, nome, descricao, dataInicio,
+                            dataFim, horaInicio, horaFim, rua, numero, bairro, cidade, uf);
+                    eventos.add(evento);
+                } while (cursor.moveToNext());
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return eventos;
+    }
+
+    private void restaurarEventosDoBackup(SQLiteDatabase db, List<Evento> eventos) {
+        for (Evento evento : eventos) {
+            ContentValues values = new ContentValues();
+            values.put(EVE_NOME, evento.getNome());
+            values.put(EVE_DESCRICAO, evento.getDescricao());
+            values.put(EVE_DATA_INICIO, evento.getDataInicio());
+            values.put(EVE_DATA_FIM, evento.getDataFim());
+            values.put(EVE_HORA_INICIO, evento.getHoraInicio());
+            values.put(EVE_HORA_FIM, evento.getHoraFim());
+            values.put(EVE_RUA, evento.getRua());
+            values.put(EVE_NUMERO, evento.getNumero());
+            values.put(EVE_BAIRRO, evento.getBairro());
+            values.put(EVE_CIDADE, evento.getCidade());
+            values.put(EVE_UF, evento.getUf());
+
+            db.insert(TABLE_EVENTS, null, values);
+        }
     }
 
     public long criarEvento(Evento evento) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(EVE_NOME, evento.getNome());
-        values.put(EVE_DESCRICAO, evento.getDescricao());
-        values.put(EVE_DATA_INICIO, evento.getDataInicio());
-        values.put(EVE_DATA_FIM, evento.getDataFim());
-        values.put(EVE_HORA_INICIO, evento.getHoraInicio());
-        values.put(EVE_HORA_FIM, evento.getHoraFim());
-        values.put(EVE_RUA, evento.getRua());
-        values.put(EVE_NUMERO, evento.getNumero());
-        values.put(EVE_BAIRRO, evento.getBairro());
-        values.put(EVE_CIDADE, evento.getCidade());
-        values.put(EVE_UF, evento.getUf());
-
-        long result = -1;
+        SQLiteDatabase db = null;
         try {
-            result = db.insert(TABLE_EVENTS, null, values);
-            Log.d("EventosDB", "Evento criado com ID: " + result);
+            db = this.getWritableDatabase();
+
+            if (!tabelaExiste(db, TABLE_EVENTS)) {
+                onCreate(db);
+            }
+
+            ContentValues values = new ContentValues();
+            values.put(EVE_NOME, evento.getNome());
+            values.put(EVE_DESCRICAO, evento.getDescricao());
+            values.put(EVE_DATA_INICIO, evento.getDataInicio());
+            values.put(EVE_DATA_FIM, evento.getDataFim());
+            values.put(EVE_HORA_INICIO, evento.getHoraInicio());
+            values.put(EVE_HORA_FIM, evento.getHoraFim());
+            values.put(EVE_RUA, evento.getRua());
+            values.put(EVE_NUMERO, evento.getNumero());
+            values.put(EVE_BAIRRO, evento.getBairro());
+            values.put(EVE_CIDADE, evento.getCidade());
+            values.put(EVE_UF, evento.getUf());
+
+            long result = db.insert(TABLE_EVENTS, null, values);
+            return result;
         } catch (Exception e) {
-            Log.e("EventosDB", "Erro ao criar evento: " + e.getMessage(), e);
+            return -1;
         } finally {
-            db.close();
+            if (db != null) {
+                db.close();
+            }
         }
-        return result;
     }
 
     public Evento carregaDadosEvento(long pEVE_ID) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = null;
         Cursor cursor = null;
         Evento evento = null;
 
-        String[] columns = {
-                EVE_ID, EVE_NOME, EVE_DESCRICAO,
-                EVE_DATA_INICIO, EVE_DATA_FIM, EVE_HORA_INICIO, EVE_HORA_FIM,
-                EVE_RUA, EVE_NUMERO, EVE_BAIRRO, EVE_CIDADE, EVE_UF
-        };
-        String selection = EVE_ID + " = ?";
-        String[] selectionArgs = { String.valueOf(pEVE_ID) };
-
         try {
+            db = this.getReadableDatabase();
+
+            if (!tabelaExiste(db, TABLE_EVENTS)) {
+                return null;
+            }
+
+            String[] columns = {
+                    EVE_ID, EVE_NOME, EVE_DESCRICAO,
+                    EVE_DATA_INICIO, EVE_DATA_FIM, EVE_HORA_INICIO, EVE_HORA_FIM,
+                    EVE_RUA, EVE_NUMERO, EVE_BAIRRO, EVE_CIDADE, EVE_UF
+            };
+            String selection = EVE_ID + " = ?";
+            String[] selectionArgs = { String.valueOf(pEVE_ID) };
+
             cursor = db.query(TABLE_EVENTS, columns, selection, selectionArgs, null, null, null);
 
             if (cursor != null && cursor.moveToFirst()) {
@@ -122,101 +220,116 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
                 evento = new Evento(id, nome, descricao, dataInicio,
                         dataFim, horaInicio, horaFim, rua, numero, bairro, cidade, uf);
             }
-        } catch (Exception e) {
-            Log.e("EventosDB", "Erro ao carregar evento: " + e.getMessage(), e);
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
-            db.close();
+            if (db != null) {
+                db.close();
+            }
         }
         return evento;
     }
 
     public boolean atualizaEvento(Evento evento) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(EVE_NOME, evento.getNome());
-        values.put(EVE_DESCRICAO, evento.getDescricao());
-        values.put(EVE_DATA_INICIO, evento.getDataInicio());
-        values.put(EVE_DATA_FIM, evento.getDataFim());
-        values.put(EVE_HORA_INICIO, evento.getHoraInicio());
-        values.put(EVE_HORA_FIM, evento.getHoraFim());
-        values.put(EVE_RUA, evento.getRua());
-        values.put(EVE_NUMERO, evento.getNumero());
-        values.put(EVE_BAIRRO, evento.getBairro());
-        values.put(EVE_CIDADE, evento.getCidade());
-        values.put(EVE_UF, evento.getUf());
-
-        String selection = EVE_ID + " = ?";
-        String[] selectionArgs = { String.valueOf(evento.getId()) };
-
-        int rowsAffected = 0;
+        SQLiteDatabase db = null;
         try {
-            rowsAffected = db.update(TABLE_EVENTS, values, selection, selectionArgs);
-            Log.d("EventosDB", "Evento ID " + evento.getId() + " atualizado. Linhas afetadas: " + rowsAffected);
+            db = this.getWritableDatabase();
+
+            if (!tabelaExiste(db, TABLE_EVENTS)) {
+                return false;
+            }
+
+            ContentValues values = new ContentValues();
+            values.put(EVE_NOME, evento.getNome());
+            values.put(EVE_DESCRICAO, evento.getDescricao());
+            values.put(EVE_DATA_INICIO, evento.getDataInicio());
+            values.put(EVE_DATA_FIM, evento.getDataFim());
+            values.put(EVE_HORA_INICIO, evento.getHoraInicio());
+            values.put(EVE_HORA_FIM, evento.getHoraFim());
+            values.put(EVE_RUA, evento.getRua());
+            values.put(EVE_NUMERO, evento.getNumero());
+            values.put(EVE_BAIRRO, evento.getBairro());
+            values.put(EVE_CIDADE, evento.getCidade());
+            values.put(EVE_UF, evento.getUf());
+
+            String selection = EVE_ID + " = ?";
+            String[] selectionArgs = { String.valueOf(evento.getId()) };
+
+            int rowsAffected = db.update(TABLE_EVENTS, values, selection, selectionArgs);
+            return rowsAffected > 0;
         } catch (Exception e) {
-            Log.e("EventosDB", "Erro ao atualizar evento: " + e.getMessage(), e);
+            return false;
         } finally {
-            db.close();
+            if (db != null) {
+                db.close();
+            }
         }
-        return rowsAffected > 0;
     }
 
     public boolean excluirEvento(long pEVE_ID) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String selection = EVE_ID + " = ?";
-        String[] selectionArgs = { String.valueOf(pEVE_ID) };
-
-        int rowsAffected = 0;
+        SQLiteDatabase db = null;
         try {
-            rowsAffected = db.delete(TABLE_EVENTS, selection, selectionArgs);
-            Log.d("EventosDB", "Evento ID " + pEVE_ID + " excluído. Linhas afetadas: " + rowsAffected);
+            db = this.getWritableDatabase();
+
+            if (!tabelaExiste(db, TABLE_EVENTS)) {
+                return false;
+            }
+
+            String selection = EVE_ID + " = ?";
+            String[] selectionArgs = { String.valueOf(pEVE_ID) };
+
+            int rowsAffected = db.delete(TABLE_EVENTS, selection, selectionArgs);
+            return rowsAffected > 0;
         } catch (Exception e) {
-            Log.e("EventosDB", "Erro ao excluir evento: " + e.getMessage(), e);
+            return false;
         } finally {
-            db.close();
+            if (db != null) {
+                db.close();
+            }
         }
-        return rowsAffected > 0;
     }
 
     public List<Evento> retornaTodosEventos() {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = null;
         List<Evento> eventosList = new ArrayList<>();
         Cursor cursor = null;
 
-        String[] columns = {
-                EVE_ID, EVE_NOME, EVE_DESCRICAO,
-                EVE_DATA_INICIO, EVE_DATA_FIM, EVE_HORA_INICIO, EVE_HORA_FIM,
-                EVE_RUA, EVE_NUMERO, EVE_BAIRRO, EVE_CIDADE, EVE_UF
-        };
-
         try {
+            db = this.getReadableDatabase();
+
+            if (!tabelaExiste(db, TABLE_EVENTS)) {
+                return eventosList;
+            }
+
+            String[] columns = {
+                    EVE_ID, EVE_NOME, EVE_DESCRICAO,
+                    EVE_DATA_INICIO, EVE_DATA_FIM, EVE_HORA_INICIO, EVE_HORA_FIM,
+                    EVE_RUA, EVE_NUMERO, EVE_BAIRRO, EVE_CIDADE, EVE_UF
+            };
+
             cursor = db.query(TABLE_EVENTS, columns, null, null, null, null, null);
 
             if (cursor != null && cursor.moveToFirst()) {
                 do {
-                    long id = cursor.getLong(cursor.getColumnIndex(EVE_ID));
-                    String nome = cursor.getString(cursor.getColumnIndex(EVE_NOME));
-                    String descricao = cursor.getString(cursor.getColumnIndex(EVE_DESCRICAO));
-                    String dataInicio = cursor.getString(cursor.getColumnIndex(EVE_DATA_INICIO));
-                    String dataFim = cursor.getString(cursor.getColumnIndex(EVE_DATA_FIM));
-                    String horaInicio = cursor.getString(cursor.getColumnIndex(EVE_HORA_INICIO));
-                    String horaFim = cursor.getString(cursor.getColumnIndex(EVE_HORA_FIM));
-                    String rua = cursor.getString(cursor.getColumnIndex(EVE_RUA));
-                    String numero = cursor.getString(cursor.getColumnIndex(EVE_NUMERO));
-                    String bairro = cursor.getString(cursor.getColumnIndex(EVE_BAIRRO));
-                    String cidade = cursor.getString(cursor.getColumnIndex(EVE_CIDADE));
-                    String uf = cursor.getString(cursor.getColumnIndex(EVE_UF));
+                    long id = cursor.getLong(cursor.getColumnIndexOrThrow(EVE_ID));
+                    String nome = cursor.getString(cursor.getColumnIndexOrThrow(EVE_NOME));
+                    String descricao = cursor.getString(cursor.getColumnIndexOrThrow(EVE_DESCRICAO));
+                    String dataInicio = cursor.getString(cursor.getColumnIndexOrThrow(EVE_DATA_INICIO));
+                    String dataFim = cursor.getString(cursor.getColumnIndexOrThrow(EVE_DATA_FIM));
+                    String horaInicio = cursor.getString(cursor.getColumnIndexOrThrow(EVE_HORA_INICIO));
+                    String horaFim = cursor.getString(cursor.getColumnIndexOrThrow(EVE_HORA_FIM));
+                    String rua = cursor.getString(cursor.getColumnIndexOrThrow(EVE_RUA));
+                    String numero = cursor.getString(cursor.getColumnIndexOrThrow(EVE_NUMERO));
+                    String bairro = cursor.getString(cursor.getColumnIndexOrThrow(EVE_BAIRRO));
+                    String cidade = cursor.getString(cursor.getColumnIndexOrThrow(EVE_CIDADE));
+                    String uf = cursor.getString(cursor.getColumnIndexOrThrow(EVE_UF));
 
                     Evento evento = new Evento(id, nome, descricao, dataInicio,
                             dataFim, horaInicio, horaFim, rua, numero, bairro, cidade, uf);
                     eventosList.add(evento);
                 } while (cursor.moveToNext());
             }
-        } catch (Exception e) {
-            Log.e("EventosDB", "Erro ao retornar todos os eventos: " + e.getMessage(), e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -228,11 +341,8 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         return eventosList;
     }
 
-    // Método para inserir dados de teste na tabela EVENTOS
     private void inserirDadosDeTeste(SQLiteDatabase db) {
-        Log.d("EventosDB", "Inserindo dados de teste...");
 
-        // Evento 1
         ContentValues values1 = new ContentValues();
         values1.put(EVE_NOME, "Feira de Tecnologia 2025");
         values1.put(EVE_DESCRICAO, "A maior feira de tecnologia do sul do país.");
@@ -245,9 +355,8 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         values1.put(EVE_BAIRRO, "Tecnoparque");
         values1.put(EVE_CIDADE, "Caxias do Sul");
         values1.put(EVE_UF, "RS");
-        db.insert(TABLE_EVENTS, null, values1);
+        long result1 = db.insert(TABLE_EVENTS, null, values1);
 
-        // Evento 2
         ContentValues values2 = new ContentValues();
         values2.put(EVE_NOME, "Workshop de Fotografia Noturna");
         values2.put(EVE_DESCRICAO, "Aprenda técnicas de fotografia em ambientes com pouca luz.");
@@ -260,9 +369,8 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         values2.put(EVE_BAIRRO, "Centro Histórico");
         values2.put(EVE_CIDADE, "Porto Alegre");
         values2.put(EVE_UF, "RS");
-        db.insert(TABLE_EVENTS, null, values2);
+        long result2 = db.insert(TABLE_EVENTS, null, values2);
 
-        // Evento 3
         ContentValues values3 = new ContentValues();
         values3.put(EVE_NOME, "Festival de Cerveja Artesanal");
         values3.put(EVE_DESCRICAO, "Degustação de cervejas locais e nacionais.");
@@ -275,8 +383,6 @@ public class EventosDatabaseHelper extends SQLiteOpenHelper {
         values3.put(EVE_BAIRRO, "Floresta");
         values3.put(EVE_CIDADE, "Gramado");
         values3.put(EVE_UF, "RS");
-        db.insert(TABLE_EVENTS, null, values3);
-
-        Log.d("EventosDB", "Dados de teste inseridos com sucesso.");
+        long result3 = db.insert(TABLE_EVENTS, null, values3);
     }
 }

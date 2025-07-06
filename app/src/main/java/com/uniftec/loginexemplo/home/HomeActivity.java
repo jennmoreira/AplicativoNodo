@@ -67,7 +67,7 @@ public class HomeActivity extends AppCompatActivity {
                 if (id == R.id.item_home) {
                     selectedFragment = new FragmentHome();
                 } else if (id == R.id.item_eventos) {
-                    selectedFragment = new com.uniftec.loginexemplo.home.FragmentEventos();
+                    selectedFragment = new com.uniftec.loginexemplo.home.eventos.FragmentEventos();
                 } else if (id == R.id.item_perfil) {
                     selectedFragment = new FragmentPerfil();
                     Bundle bundleHome = new Bundle();

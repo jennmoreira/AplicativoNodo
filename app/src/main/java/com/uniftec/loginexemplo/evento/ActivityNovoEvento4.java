@@ -1,4 +1,4 @@
-package com.uniftec.loginexemplo;
+package com.uniftec.loginexemplo.evento;
 
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.uniftec.loginexemplo.R;
 import com.uniftec.loginexemplo.home.HomeActivity;
 
 public class ActivityNovoEvento4 extends AppCompatActivity {

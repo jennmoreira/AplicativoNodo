@@ -1,32 +1,22 @@
-package com.uniftec.loginexemplo;
+package com.uniftec.loginexemplo.evento;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-import java.util.Date;
-
 import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.uniftec.loginexemplo.R;
 import com.uniftec.loginexemplo.home.HomeActivity;
-import com.uniftec.loginexemplo.perfil.EditarPerfilActivity;
 import com.uniftec.loginexemplo.sql.eventos.Evento;
 import com.uniftec.loginexemplo.sql.eventos.EventosDatabaseHelper;
-import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
 
 public class ActivityEvento extends AppCompatActivity {
 
@@ -36,6 +26,7 @@ public class ActivityEvento extends AppCompatActivity {
     private Button buttonFinalizarCadastro;
     private AppCompatImageButton btnVoltarNovoEvento;
     private EventosDatabaseHelper eventosDb;
+    private long pEVE_ID = -1; // Variável para armazenar o ID do evento, se estiver editando
     private long USU_ID_SESSION = -1;
 
     @Override
@@ -50,14 +41,19 @@ public class ActivityEvento extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("USU_ID_SESSION")) {
+        if (intent != null) {
             USU_ID_SESSION = intent.getLongExtra("USU_ID_SESSION", -1L);
+            pEVE_ID = intent.getLongExtra("pEVE_ID", -1L); // Pega o ID do evento se for para editar
         }
 
         inicializarComponentes();
         configurarEventos(USU_ID_SESSION);
 
         eventosDb = new EventosDatabaseHelper(this);
+
+        if (pEVE_ID != -1) {
+            carregarDadosEvento(pEVE_ID);
+        }
     }
 
     private void inicializarComponentes() {
@@ -81,6 +77,27 @@ public class ActivityEvento extends AppCompatActivity {
         buttonFinalizarCadastro.setOnClickListener(v -> finalizarCadastro());
     }
 
+    private void carregarDadosEvento(long pEVE_ID) {
+        Evento evento = eventosDb.carregaDadosEvento(pEVE_ID);
+        if (evento != null) {
+            editNome.setText(evento.getNome());
+            editTextDescricao.setText(evento.getDescricao());
+            editDataInicio.setText(evento.getDataInicio());
+            editHoraInicio.setText(evento.getHoraInicio());
+            editDataFinal.setText(evento.getDataFim());
+            editHoraFinal.setText(evento.getHoraFim());
+            editRua.setText(evento.getRua());
+            editNumeroPredial.setText(evento.getNumero());
+            editBairro.setText(evento.getBairro());
+            editCidade.setText(evento.getCidade());
+            editUF.setText(evento.getUf());
+            buttonFinalizarCadastro.setText("Atualizar Evento"); // Altera o texto do botão
+        } else {
+            Toast.makeText(this, "Evento não encontrado.", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
     private void finalizarCadastro() {
         String nome = editNome.getText().toString().trim();
         String descricao = editTextDescricao.getText().toString().trim();
@@ -94,75 +111,45 @@ public class ActivityEvento extends AppCompatActivity {
         String cidade = editCidade.getText().toString().trim();
         String uf = editUF.getText().toString().trim();
 
-        if (nome.isEmpty()) {
-            editNome.setError("Nome é obrigatório.");
-            editNome.requestFocus();
-            return;
-        }
-        if (descricao.isEmpty()) {
-            editTextDescricao.setError("Descrição é obrigatória.");
-            editTextDescricao.requestFocus();
-            return;
-        }
-        if (dataInicio.isEmpty()) {
-            editDataInicio.setError("Data de início é obrigatória.");
-            editDataInicio.requestFocus();
-            return;
-        }
-        if (horaInicio.isEmpty()) {
-            editHoraInicio.setError("Hora de início é obrigatória.");
-            editHoraInicio.requestFocus();
-            return;
-        }
-        if (dataFim.isEmpty()) {
-            editDataFinal.setError("Data final é obrigatória.");
-            editDataFinal.requestFocus();
-            return;
-        }
-        if (horaFim.isEmpty()) {
-            editHoraFinal.setError("Hora final é obrigatória.");
-            editHoraFinal.requestFocus();
-            return;
-        }
-        if (rua.isEmpty()) {
-            editRua.setError("Rua é obrigatória.");
-            editRua.requestFocus();
+        if (nome.isEmpty() || descricao.isEmpty() || dataInicio.isEmpty() ||
+                horaInicio.isEmpty() || dataFim.isEmpty() || horaFim.isEmpty() ||
+                rua.isEmpty() || bairro.isEmpty() || cidade.isEmpty() || uf.isEmpty()) {
+            Toast.makeText(this, "Preencha todos os campos obrigatórios.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (bairro.isEmpty()) {
-            editBairro.setError("Bairro é obrigatório.");
-            editBairro.requestFocus();
-            return;
-        }
-        if (cidade.isEmpty()) {
-            editCidade.setError("Cidade é obrigatória.");
-            editCidade.requestFocus();
-            return;
-        }
-        if (uf.isEmpty()) {
-            editUF.setError("UF é obrigatória.");
-            editUF.requestFocus();
-            return;
-        }
         if (uf.length() != 2) {
             editUF.setError("UF deve ter 2 caracteres.");
             editUF.requestFocus();
             return;
         }
 
-        Evento novoEvento = new Evento(
+        Evento evento = new Evento(
                 nome, descricao, dataInicio, dataFim,
                 horaInicio, horaFim, rua, numero, bairro, cidade, uf
         );
 
-        long id = eventosDb.criarEvento(novoEvento);
-
-        if (id != -1) {
-            Toast.makeText(this, "Evento cadastrado com sucesso!", Toast.LENGTH_SHORT).show(); // Informa ao FragmentEventos que um novo evento foi adicionado
+        boolean sucesso;
+        if (pEVE_ID != -1) {
+            evento.setId(pEVE_ID);
+            sucesso = eventosDb.atualizaEvento(evento);
+            if (sucesso) {
+                Toast.makeText(this, "Evento atualizado com sucesso!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Erro ao atualizar evento.", Toast.LENGTH_SHORT).show();
+            }
+        } else { // Modo de criação
+            long id = eventosDb.criarEvento(evento);
+            sucesso = (id != -1);
+            if (sucesso) {
+                Toast.makeText(this, "Evento cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Erro ao cadastrar evento.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if (sucesso) {
+            setResult(RESULT_OK);
             finish();
-        } else {
-            Toast.makeText(this, "Erro ao cadastrar evento.", Toast.LENGTH_SHORT).show();
         }
     }
 

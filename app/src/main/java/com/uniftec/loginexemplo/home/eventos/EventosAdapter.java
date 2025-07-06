@@ -1,19 +1,16 @@
-package com.uniftec.loginexemplo.home.eventos; // O pacote mudou para .home.eventos
+package com.uniftec.loginexemplo.home.eventos;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.uniftec.loginexemplo.ActivityEvento;
+import com.uniftec.loginexemplo.evento.ActivityEvento;
 import com.uniftec.loginexemplo.R;
 import com.uniftec.loginexemplo.sql.eventos.Evento;
 import com.uniftec.loginexemplo.sql.eventos.EventosDatabaseHelper;
@@ -51,14 +48,13 @@ public class EventosAdapter extends ArrayAdapter<Evento> {
         if (btnEditar != null) {
             btnEditar.setOnClickListener(v -> {
                 Intent intent = new Intent(mContext, ActivityEvento.class);
-                intent.putExtra("eventoIdParaEditar", currentEvento.getId());
+                intent.putExtra("pEVE_ID", currentEvento.getId());
                 mContext.startActivity(intent);
             });
         }
 
         if (btnDelete != null) {
             btnDelete.setOnClickListener(v -> {
-
                 EventosDatabaseHelper db = new EventosDatabaseHelper(mContext);
                 boolean sucesso = db.excluirEvento(currentEvento.getId());
                 if (sucesso) {
@@ -75,7 +71,6 @@ public class EventosAdapter extends ArrayAdapter<Evento> {
     }
 
     public void setEventos(List<Evento> newEventos) {
-
         mEventosList.clear();
         mEventosList.addAll(newEventos);
         notifyDataSetChanged();

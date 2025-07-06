@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityNovoEvento4"
+    tools:context=".evento.ActivityNovoEvento4"
     android:background="@drawable/background">
 
 

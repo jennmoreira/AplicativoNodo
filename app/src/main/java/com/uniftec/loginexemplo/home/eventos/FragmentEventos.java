@@ -1,4 +1,4 @@
-package com.uniftec.loginexemplo.home;
+package com.uniftec.loginexemplo.home.eventos;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +14,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.uniftec.loginexemplo.DetailEvento;
-import com.uniftec.loginexemplo.ActivityEvento;
+import com.uniftec.loginexemplo.evento.ActivityEvento;
 import com.uniftec.loginexemplo.R;
-import com.uniftec.loginexemplo.home.eventos.EventosAdapter;
 import com.uniftec.loginexemplo.sql.eventos.Evento;
 import com.uniftec.loginexemplo.sql.eventos.EventosDatabaseHelper;
 
@@ -51,7 +50,7 @@ public class FragmentEventos extends Fragment {
         listaEventos.setOnItemClickListener((AdapterView<?> parent, View v, int position, long id) -> {
             Evento eventoClicado = eventos.get(position);
             Intent intent = new Intent(getActivity(), DetailEvento.class);
-            intent.putExtra("eventoId", eventoClicado.getId());
+            intent.putExtra("pEVE_ID", eventoClicado.getId());
             startActivity(intent);
         });
 

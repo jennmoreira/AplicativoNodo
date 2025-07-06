@@ -16,16 +16,7 @@
             android:name=".DetailPrestador"
             android:exported="false" />
         <activity
-            android:name=".ActivityNovoEvento4"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityNovoEvento3"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityNovoEvento2"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityEvento"
+            android:name=".evento.ActivityEvento"
             android:exported="false" />
         <activity
             android:name=".login.EsqueciSenhaActivity"
