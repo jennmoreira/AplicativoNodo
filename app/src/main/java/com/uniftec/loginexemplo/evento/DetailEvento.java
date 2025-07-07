@@ -1,8 +1,7 @@
-package com.uniftec.loginexemplo;
+package com.uniftec.loginexemplo.evento;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;

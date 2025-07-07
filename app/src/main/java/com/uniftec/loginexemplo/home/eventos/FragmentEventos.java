@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.uniftec.loginexemplo.DetailEvento;
+import com.uniftec.loginexemplo.evento.DetailEvento;
 import com.uniftec.loginexemplo.evento.ActivityEvento;
 import com.uniftec.loginexemplo.R;
 import com.uniftec.loginexemplo.sql.eventos.Evento;

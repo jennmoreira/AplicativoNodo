@@ -12,7 +12,7 @@ import java.util.List;
 public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "apkProjeto.db";
-    private static final int DATABASE_VERSION = 96;
+    private static final int DATABASE_VERSION = 97;
     public static final String TABLE_USERS = "USUARIOS";
     public static final String USU_ID = "id";
     public static final String USU_NOME = "name";
@@ -141,7 +141,6 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
         values.put(USU_NOME, nomePadrao);
         values.put(USU_EMAIL, emailPadrao);
         values.put(USU_SENHA, senhaPadrao);
-        values.put(USU_TIPO, tipoPadrao);
         values.put(USU_TIPO, tipoPadrao);
         values.put(USU_TELEFONE, "");
         values.put(USU_ENDERECO, "");
