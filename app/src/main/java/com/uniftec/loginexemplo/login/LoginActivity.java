@@ -18,13 +18,17 @@ import androidx.core.view.WindowInsetsCompat;
 import com.uniftec.loginexemplo.home.HomeActivity;
 import com.uniftec.loginexemplo.R;
 import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
+import com.uniftec.loginexemplo.sql.eventos.EventosDatabaseHelper;
+import com.uniftec.loginexemplo.sql.candidatos.CandidatoDatabaseHelper;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText editEmail, editSenha;
     private Button btnEntrar;
     private TextView textCadastro, textEsqueceuSenha;
-    private UsuariosDatabaseHelper dbHelper;
+    private UsuariosDatabaseHelper usuariosDbHelper;
+    private EventosDatabaseHelper eventosDbHelper;
+    private CandidatoDatabaseHelper candidatosDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,9 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
-        dbHelper = new UsuariosDatabaseHelper(this);
+        usuariosDbHelper = new UsuariosDatabaseHelper(this);
+        eventosDbHelper = new EventosDatabaseHelper(this);
+        candidatosDbHelper = new CandidatoDatabaseHelper(this);
 
         inicializarComponentes();
         configurarEventos();
@@ -68,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        long USU_ID_SESSION = dbHelper.realizaLogin(email, password);
+        long USU_ID_SESSION = usuariosDbHelper.realizaLogin(email, password);
 
         if (USU_ID_SESSION != -1) {
             Toast.makeText(this, getString(R.string.login_realizado), Toast.LENGTH_SHORT).show();

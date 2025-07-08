@@ -57,7 +57,7 @@ public class FragmentEventos extends Fragment {
         }
 
         ListView listaEventos = view.findViewById(R.id.lista_eventos);
-        adapter = new EventosAdapter(getContext(), eventos, tipoUsuarioLogado);
+        adapter = new EventosAdapter(getContext(), eventos, tipoUsuarioLogado, USU_ID_SESSION);
         listaEventos.setAdapter(adapter);
 
         carregarEventosDoBanco();

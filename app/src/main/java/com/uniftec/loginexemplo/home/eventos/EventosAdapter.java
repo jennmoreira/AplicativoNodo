@@ -15,6 +15,7 @@ import com.uniftec.loginexemplo.evento.ActivityEvento;
 import com.uniftec.loginexemplo.R;
 import com.uniftec.loginexemplo.sql.eventos.Evento;
 import com.uniftec.loginexemplo.sql.eventos.EventosDatabaseHelper;
+import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
 
 import java.util.List;
 
@@ -23,12 +24,14 @@ public class EventosAdapter extends ArrayAdapter<Evento> {
     private Context mContext;
     private List<Evento> mEventosList;
     private String mTipoUsuarioLogado;
+    private long mUsuIdSession;
 
-    public EventosAdapter(Context context, List<Evento> eventosList, String tipoUsuarioLogado) {
+    public EventosAdapter(Context context, List<Evento> eventosList, String tipoUsuarioLogado, long usuIdSession) {
         super(context, 0, eventosList);
         this.mContext = context;
         this.mEventosList = eventosList;
         this.mTipoUsuarioLogado = tipoUsuarioLogado;
+        this.mUsuIdSession = usuIdSession;
     }
 
     @Override
@@ -59,6 +62,7 @@ public class EventosAdapter extends ArrayAdapter<Evento> {
                 btnEditar.setOnClickListener(v -> {
                     Intent intent = new Intent(mContext, ActivityEvento.class);
                     intent.putExtra("pEVE_ID", currentEvento.getId());
+                    intent.putExtra("USU_ID_SESSION", mUsuIdSession);
                     mContext.startActivity(intent);
                 });
             }
@@ -91,6 +95,7 @@ public class EventosAdapter extends ArrayAdapter<Evento> {
                 btnView.setOnClickListener(v -> {
                     Intent intent = new Intent(mContext, DetailEvento.class);
                     intent.putExtra("pEVE_ID", currentEvento.getId());
+                    intent.putExtra("USU_ID_SESSION", mUsuIdSession);
                     mContext.startActivity(intent);
                 });
             }
@@ -107,5 +112,9 @@ public class EventosAdapter extends ArrayAdapter<Evento> {
 
     public void setTipoUsuarioLogado(String tipoUsuarioLogado) {
         this.mTipoUsuarioLogado = tipoUsuarioLogado;
+    }
+
+    public void setUsuIdSession(long usuIdSession) {
+        this.mUsuIdSession = usuIdSession;
     }
 }
