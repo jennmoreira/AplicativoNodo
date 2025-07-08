@@ -19,6 +19,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.uniftec.loginexemplo.R;
 import com.uniftec.loginexemplo.home.home.FragmentHome;
 import com.uniftec.loginexemplo.home.perfil.FragmentPerfil;
+import com.uniftec.loginexemplo.home.eventos.FragmentEventos;
+
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -67,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
                 if (id == R.id.item_home) {
                     selectedFragment = new FragmentHome();
                 } else if (id == R.id.item_eventos) {
-                    selectedFragment = new com.uniftec.loginexemplo.home.eventos.FragmentEventos();
+                    selectedFragment = new FragmentEventos();
                     Bundle bundleHome = new Bundle();
                     bundleHome.putLong("USU_ID_SESSION", USU_ID_SESSION);
                     selectedFragment.setArguments(bundleHome);
@@ -95,4 +97,15 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                if (data != null && data.hasExtra("USU_ID_SESSION")) {
+                    USU_ID_SESSION = data.getLongExtra("USU_ID_SESSION", -1L);
+                }
+            }
+        }
+    }
 }

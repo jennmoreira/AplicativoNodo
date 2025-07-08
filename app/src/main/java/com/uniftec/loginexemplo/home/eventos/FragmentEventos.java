@@ -74,6 +74,7 @@ public class FragmentEventos extends Fragment {
             btnAdicionar.setVisibility(View.VISIBLE);
             btnAdicionar.setOnClickListener(v -> {
                 Intent intent = new Intent(getActivity(), ActivityEvento.class);
+                intent.putExtra("USU_ID_SESSION", USU_ID_SESSION);
                 startActivityForResult(intent, REQUEST_NOVO_EVENTO);
             });
         } else {
@@ -86,6 +87,17 @@ public class FragmentEventos extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (USU_ID_SESSION != -1) {
+            tipoUsuarioLogado = usuariosDb.getTipoUsuario(USU_ID_SESSION);
+            FloatingActionButton btnAdicionar = getView().findViewById(R.id.btnAdicionarEvento);
+            if ("criador".equals(tipoUsuarioLogado)) {
+                btnAdicionar.setVisibility(View.VISIBLE);
+            } else {
+                btnAdicionar.setVisibility(View.GONE);
+            }
+            adapter.setTipoUsuarioLogado(tipoUsuarioLogado);
+            adapter.notifyDataSetChanged();
+        }
         carregarEventosDoBanco();
     }
 
@@ -102,6 +114,9 @@ public class FragmentEventos extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_NOVO_EVENTO && resultCode == getActivity().RESULT_OK) {
+            if (data != null && data.hasExtra("USU_ID_SESSION")) {
+                USU_ID_SESSION = data.getLongExtra("USU_ID_SESSION", -1L);
+            }
             carregarEventosDoBanco();
             Toast.makeText(getContext(), "Lista de eventos atualizada!", Toast.LENGTH_SHORT).show();
         }

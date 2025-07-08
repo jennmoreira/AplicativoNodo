@@ -12,7 +12,7 @@ import java.util.List;
 public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "apkProjeto.db";
-    private static final int DATABASE_VERSION = 97;
+    private static final int DATABASE_VERSION = 99;
     public static final String TABLE_USERS = "USUARIOS";
     public static final String USU_ID = "id";
     public static final String USU_NOME = "name";
@@ -132,9 +132,9 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void inserirUsuarioPadrao(SQLiteDatabase db) {
-        String nomePadrao = "Usuário Teste";
-        String emailPadrao = "a@gmail.com";
-        String senhaPadrao = "123456";
+        String nomePadrao = "Usuário Criador";
+        String emailPadrao = "c@gmail.com";
+        String senhaPadrao = "111111";
         String tipoPadrao = "criador";
 
         ContentValues values = new ContentValues();
@@ -148,6 +148,23 @@ public class UsuariosDatabaseHelper extends SQLiteOpenHelper {
         values.put(USU_CIDADE, "");
 
         db.insert(TABLE_USERS, null, values);
+
+        nomePadrao = "Usuário Prestador";
+        emailPadrao = "p@gmail.com";
+        senhaPadrao = "222222";
+        tipoPadrao = "prestador";
+
+        ContentValues values2 = new ContentValues();
+        values2.put(USU_NOME, nomePadrao);
+        values2.put(USU_EMAIL, emailPadrao);
+        values2.put(USU_SENHA, senhaPadrao);
+        values2.put(USU_TIPO, tipoPadrao);
+        values2.put(USU_TELEFONE, "");
+        values2.put(USU_ENDERECO, "");
+        values2.put(USU_ESTADO, "");
+        values2.put(USU_CIDADE, "");
+
+        db.insert(TABLE_USERS, null, values2);
     }
 
     public boolean criarUsuario(String pUSU_NOME, String pUSU_EMAIL, String pUSU_SENHA, String pUSU_TIPO) {

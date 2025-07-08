@@ -104,4 +104,8 @@ public class EventosAdapter extends ArrayAdapter<Evento> {
         mEventosList.addAll(newEventos);
         notifyDataSetChanged();
     }
+
+    public void setTipoUsuarioLogado(String tipoUsuarioLogado) {
+        this.mTipoUsuarioLogado = tipoUsuarioLogado;
+    }
 }

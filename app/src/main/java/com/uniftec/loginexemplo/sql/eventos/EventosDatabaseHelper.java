@@ -12,7 +12,7 @@ import java.util.List;
 
 public class EventosDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "apkProjeto.db";
-    private static final int DATABASE_VERSION = 97;
+    private static final int DATABASE_VERSION = 99;
     public static final String TABLE_EVENTS = "EVENTOS";
     public static final String EVE_ID = "id";
     public static final String EVE_NOME = "nome";

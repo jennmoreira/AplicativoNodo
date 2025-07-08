@@ -45,7 +45,7 @@ public class ActivityEvento extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             USU_ID_SESSION = intent.getLongExtra("USU_ID_SESSION", -1L);
-            pEVE_ID = intent.getLongExtra("pEVE_ID", -1L); // Pega o ID do evento se for para editar
+            pEVE_ID = intent.getLongExtra("pEVE_ID", -1L);
         }
 
         inicializarComponentes();
@@ -79,7 +79,7 @@ public class ActivityEvento extends AppCompatActivity {
     }
 
     private void configurarEventos(long USU_ID_SESSION){
-        btnVoltarNovoEvento.setOnClickListener(v -> voltar(USU_ID_SESSION));
+        btnVoltarNovoEvento.setOnClickListener(v -> voltar());
         buttonFinalizarCadastro.setOnClickListener(v -> finalizarCadastro());
     }
 
@@ -153,7 +153,7 @@ public class ActivityEvento extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Erro ao atualizar evento.", Toast.LENGTH_SHORT).show();
             }
-        } else { // Modo de criação
+        } else {
             long id = eventosDb.criarEvento(evento);
             sucesso = (id != -1);
             if (sucesso) {
@@ -163,15 +163,17 @@ public class ActivityEvento extends AppCompatActivity {
             }
         }
         if (sucesso) {
-            setResult(RESULT_OK);
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("USU_ID_SESSION", USU_ID_SESSION);
+            setResult(RESULT_OK, resultIntent);
             finish();
         }
     }
 
-    private void voltar(long USU_ID_SESSION) {
-        Intent intent = new Intent(ActivityEvento.this, HomeActivity.class);
-        intent.putExtra("USU_ID_SESSION", USU_ID_SESSION);
-        startActivity(intent);
+    private void voltar() {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("USU_ID_SESSION", USU_ID_SESSION);
+        setResult(RESULT_OK, resultIntent);
         finish();
     }
 }
