@@ -15,9 +15,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.uniftec.loginexemplo.R;
-import com.uniftec.loginexemplo.home.HomeActivity;
+import com.uniftec.loginexemplo.sql.AppDatabaseHelper;
 import com.uniftec.loginexemplo.sql.eventos.Evento;
-import com.uniftec.loginexemplo.sql.eventos.EventosDatabaseHelper;
 
 public class ActivityEvento extends AppCompatActivity {
 
@@ -26,7 +25,7 @@ public class ActivityEvento extends AppCompatActivity {
     private EditText editRua, editNumeroPredial, editBairro, editCidade, editUF;
     private Button buttonFinalizarCadastro;
     private AppCompatImageButton btnVoltarNovoEvento;
-    private EventosDatabaseHelper eventosDb;
+    private AppDatabaseHelper db;
     private long pEVE_ID = -1;
     private long USU_ID_SESSION = -1;
     private CheckBox checkSeguranca, checkLimpeza, checkInfraestrutura, checkOutros;
@@ -51,7 +50,7 @@ public class ActivityEvento extends AppCompatActivity {
         inicializarComponentes();
         configurarEventos(USU_ID_SESSION);
 
-        eventosDb = new EventosDatabaseHelper(this);
+        db = new AppDatabaseHelper(this);
 
         if (pEVE_ID != -1) {
             carregarDadosEvento(pEVE_ID);
@@ -84,7 +83,7 @@ public class ActivityEvento extends AppCompatActivity {
     }
 
     private void carregarDadosEvento(long pEVE_ID) {
-        Evento evento = eventosDb.carregaDadosEvento(pEVE_ID);
+        Evento evento = db.carregaDadosEvento(pEVE_ID);
         if (evento != null) {
             editNome.setText(evento.getNome());
             editTextDescricao.setText(evento.getDescricao());
@@ -147,14 +146,14 @@ public class ActivityEvento extends AppCompatActivity {
         boolean sucesso;
         if (pEVE_ID != -1) {
             evento.setId(pEVE_ID);
-            sucesso = eventosDb.atualizaEvento(evento);
+            sucesso = db.atualizaEvento(evento);
             if (sucesso) {
                 Toast.makeText(this, "Evento atualizado com sucesso!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Erro ao atualizar evento.", Toast.LENGTH_SHORT).show();
             }
         } else {
-            long id = eventosDb.criarEvento(evento);
+            long id = db.criarEvento(evento);
             sucesso = (id != -1);
             if (sucesso) {
                 Toast.makeText(this, "Evento cadastrado com sucesso!", Toast.LENGTH_SHORT).show();

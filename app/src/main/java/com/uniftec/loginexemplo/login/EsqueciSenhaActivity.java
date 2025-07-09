@@ -15,13 +15,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.uniftec.loginexemplo.R;
-import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
+import com.uniftec.loginexemplo.sql.AppDatabaseHelper;
 
 public class EsqueciSenhaActivity extends AppCompatActivity {
 
     private EditText editEmail;
     private Button btnEnviar, btnVoltar;
-    private UsuariosDatabaseHelper dbHelper;
+    private AppDatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
             return insets;
         });
 
-        dbHelper = new UsuariosDatabaseHelper(this);
+        db = new AppDatabaseHelper(this);
 
         inicializarComponentes();
         configurarEventos();
@@ -58,7 +58,7 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
             return;
         }
 
-        if (dbHelper.validaEmailUtilizado(email)) {
+        if (db.validaEmailUtilizado(email)) {
             Toast.makeText(this, getString(R.string.email_enviado_verifique_sua_caixa_entrada), Toast.LENGTH_LONG).show();
             abrirTelaLogin();
         } else {

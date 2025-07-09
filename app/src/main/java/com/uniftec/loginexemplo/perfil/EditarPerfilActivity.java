@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.uniftec.loginexemplo.R;
 import com.uniftec.loginexemplo.home.HomeActivity;
 import com.uniftec.loginexemplo.login.LoginActivity;
-import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
+import com.uniftec.loginexemplo.sql.AppDatabaseHelper;
 import com.uniftec.loginexemplo.sql.usuarios.Usuario; // Assumindo que você tem essa classe
 
 
@@ -22,7 +22,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
     private EditText editName, editEmail, editTelefone, editCidade, editEstado, editEndereco;
     private Button btnVoltar, btnSalvar;
-    private UsuariosDatabaseHelper dbHelper;
+    private AppDatabaseHelper db;
     private long USU_ID_SESSION = -1;
 
 
@@ -32,7 +32,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_editar_perfil);
 
-        dbHelper = new UsuariosDatabaseHelper(this);
+        db = new AppDatabaseHelper(this);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("USU_ID_SESSION")) {
@@ -53,7 +53,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
     private void carregaDados(long USU_ID_SESSION) {
 
-        Usuario usuario = dbHelper.carregaDadosUsuario(USU_ID_SESSION);
+        Usuario usuario = db.carregaDadosUsuario(USU_ID_SESSION);
 
         if (usuario != null) {
 
@@ -98,7 +98,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
             return;
         }
 
-        boolean sucesso = dbHelper.atualizaUsuario(USU_ID_SESSION, name, email, telefone, endereco, estado, cidade);
+        boolean sucesso = db.atualizaUsuario(USU_ID_SESSION, name, email, telefone, endereco, estado, cidade);
 
         if (sucesso) {
             Toast.makeText(this, "Perfil atualizado com sucesso!", Toast.LENGTH_LONG).show();

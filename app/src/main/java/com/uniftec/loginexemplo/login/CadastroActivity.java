@@ -14,13 +14,13 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.uniftec.loginexemplo.R;
-import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
+import com.uniftec.loginexemplo.sql.AppDatabaseHelper;
 
 public class CadastroActivity extends AppCompatActivity {
 
     private EditText editName, editEmail, editPassword, editConfirmPassword;
     private Button btnVoltar, btnCriar;
-    private UsuariosDatabaseHelper dbHelper;
+    private AppDatabaseHelper db;
     private RadioGroup radioGroupTipoUsuario;
     private RadioButton radioCriador, radioPrestador;
 
@@ -30,7 +30,7 @@ public class CadastroActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cadastro);
 
-        dbHelper = new UsuariosDatabaseHelper(this);
+        db = new AppDatabaseHelper(this);
 
         inicializarComponentes();
         configurarEventos();
@@ -128,12 +128,12 @@ public class CadastroActivity extends AppCompatActivity {
 
     private boolean salvarUsuario(String name, String email, String password, String tipoUsuario) {
         try {
-            if (dbHelper.validaEmailUtilizado(email)) {
+            if (db.validaEmailUtilizado(email)) {
                 editEmail.setError(getString(R.string.email_ja_cadastrado));
                 return false;
             }
 
-            return dbHelper.criarUsuario(name, email, password, tipoUsuario);
+            return db.criarUsuario(name, email, password, tipoUsuario);
 
         } catch (Exception e) {
             e.printStackTrace();

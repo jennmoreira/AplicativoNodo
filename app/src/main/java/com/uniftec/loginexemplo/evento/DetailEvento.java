@@ -12,17 +12,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.uniftec.loginexemplo.databinding.ActivityDetailEventoBinding;
-import com.uniftec.loginexemplo.sql.candidatos.CandidatoDatabaseHelper;
+import com.uniftec.loginexemplo.sql.AppDatabaseHelper;
 import com.uniftec.loginexemplo.sql.eventos.Evento;
-import com.uniftec.loginexemplo.sql.eventos.EventosDatabaseHelper;
-import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
 
 public class DetailEvento extends AppCompatActivity {
 
     private ActivityDetailEventoBinding binding;
-    private EventosDatabaseHelper eventosDb;
-    private CandidatoDatabaseHelper candidatoDb;
-    private UsuariosDatabaseHelper usuariosDb;
+    private AppDatabaseHelper db;
     private long pEVE_ID = -1;
     private long USU_ID_SESSION = -1;
 
@@ -42,9 +38,7 @@ public class DetailEvento extends AppCompatActivity {
                 return insets;
             });
 
-            eventosDb = new EventosDatabaseHelper(this);
-            candidatoDb = new CandidatoDatabaseHelper(this);
-            usuariosDb = new UsuariosDatabaseHelper(this);
+            db = new AppDatabaseHelper(this);
 
             Intent intent = getIntent();
             if (intent != null) {
@@ -73,7 +67,7 @@ public class DetailEvento extends AppCompatActivity {
 
     private void carregarDetalhesEvento(long eventoId) {
         try {
-            Evento evento = eventosDb.carregaDadosEvento(eventoId);
+            Evento evento = db.carregaDadosEvento(eventoId);
             if (evento != null) {
                 binding.detailName.setText(evento.getNome());
                 binding.detailDescricaoConteudo.setText(evento.getDescricao());
@@ -115,10 +109,10 @@ public class DetailEvento extends AppCompatActivity {
     private void configurarVisibilidadeBotaoCandidatar(long pEVE_ID, long pUSU_ID_SESSION) {
         try {
             if (pUSU_ID_SESSION != -1) {
-                String tipoUsuario = usuariosDb.getTipoUsuario(pUSU_ID_SESSION);
+                String tipoUsuario = db.getTipoUsuario(pUSU_ID_SESSION);
                 if ("prestador".equals(tipoUsuario)) {
                     binding.btnCandidatar.setVisibility(View.VISIBLE);
-                    if (candidatoDb.candidatoJaExiste(pUSU_ID_SESSION, pEVE_ID)) {
+                    if (db.candidatoJaExiste(pUSU_ID_SESSION, pEVE_ID)) {
                         binding.btnCandidatar.setText("Já Candidatado");
                         binding.btnCandidatar.setEnabled(false);
                     } else {
@@ -139,7 +133,7 @@ public class DetailEvento extends AppCompatActivity {
     private void candidatarSe(long pEVE_ID, long pUSU_ID_SESSION) {
         try {
             if (pUSU_ID_SESSION != -1 && pEVE_ID != -1) {
-                if (candidatoDb.inserirCandidato(pEVE_ID, pUSU_ID_SESSION)) {
+                if (db.inserirCandidato(pEVE_ID, pUSU_ID_SESSION)) {
                     Toast.makeText(this, "Candidatura realizada com sucesso!", Toast.LENGTH_SHORT).show();
                     binding.btnCandidatar.setText("Já Candidatado");
                     binding.btnCandidatar.setEnabled(false);

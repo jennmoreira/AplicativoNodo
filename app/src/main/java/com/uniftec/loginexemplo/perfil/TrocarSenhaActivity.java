@@ -13,14 +13,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.uniftec.loginexemplo.R;
 import com.uniftec.loginexemplo.home.HomeActivity;
 import com.uniftec.loginexemplo.login.LoginActivity;
-import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
+import com.uniftec.loginexemplo.sql.AppDatabaseHelper;
 
 
 public class TrocarSenhaActivity extends AppCompatActivity {
 
     private EditText editSenhaAtual, editSenhaNova, editSenhaNovaConf;
     private Button btnVoltar, btnSalvar;
-    private UsuariosDatabaseHelper dbHelper;
+    private AppDatabaseHelper db;
     private long USU_ID_SESSION = -1;
 
     @Override
@@ -29,7 +29,7 @@ public class TrocarSenhaActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_trocar_senha);
 
-        dbHelper = new UsuariosDatabaseHelper(this);
+        db = new AppDatabaseHelper(this);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("USU_ID_SESSION")) {
@@ -62,7 +62,7 @@ public class TrocarSenhaActivity extends AppCompatActivity {
         if (validarCampos(senhaAtual, senhaNova, senhaNovaConf, USU_ID_SESSION)) {
             Toast.makeText(this, R.string.perfil_atualizado_com_sucesso, Toast.LENGTH_LONG).show();
 
-            dbHelper.atualizarSenhaUsuario(USU_ID_SESSION, senhaNova);
+            db.atualizarSenhaUsuario(USU_ID_SESSION, senhaNova);
             Toast.makeText(this, R.string.perfil_atualizado_com_sucesso, Toast.LENGTH_LONG).show();
             voltar(USU_ID_SESSION);
         }
@@ -90,7 +90,7 @@ public class TrocarSenhaActivity extends AppCompatActivity {
             return false;
         }
 
-        boolean senhaAtualCorreta = dbHelper.validaSenhaAtual(userId, senhaAtual);
+        boolean senhaAtualCorreta = db.validaSenhaAtual(userId, senhaAtual);
 
         if (!senhaAtualCorreta) {
             editSenhaAtual.setError(getString(R.string.senha_invalida));

@@ -1,137 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bluelight"
-    tools:context=".home.home.FragmentHome"> <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
-
-    <EditText
-        android:id="@+id/filterPesquisar"
-        style="@style/FilterText"
-        android:layout_width="349dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
-        android:hint="Pesquisar"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.037" />
+    android:background="@color/bluelight"
+    android:padding="16dp"
+    tools:context=".home.home.FragmentHome">
 
     <TextView
-        android:id="@+id/textView4"
-        style="@style/Label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Categoria"
-        android:layout_marginBottom="8dp"/>
-
-    <LinearLayout
+        android:id="@+id/home_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="24dp">
+        android:text="Bem-vindo!"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_horizontal"/>
 
-        <View
-            android:id="@+id/categoria1"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:background="@color/cardview_dark_background" />
-
-        <View
-            android:id="@+id/categoria2"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:background="@color/cardview_dark_background" />
-
-        <View
-            android:id="@+id/categoria3"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:background="@color/cardview_dark_background" />
-
-        <View
-            android:id="@+id/categoria4"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:background="@color/cardview_dark_background" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView5"
-        style="@style/Label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Vagas recentes"
-        android:layout_marginBottom="8dp"/>
-
-    <LinearLayout
+    <ListView
+        android:id="@+id/home_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="24dp">
+        android:layout_height="match_parent"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"/>
 
-        <View
-            android:id="@+id/vaga1"
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:background="@color/cardview_dark_background" />
-
-        <View
-            android:id="@+id/vaga2"
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_weight="1"
-            android:background="@color/cardview_dark_background" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView6"
-        style="@style/Label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Meus eventos"
-        android:layout_marginBottom="8dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="16dp">
-
-        <View
-            android:id="@+id/evento1"
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:background="@color/cardview_dark_background" />
-
-        <View
-            android:id="@+id/evento2"
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_weight="1"
-            android:background="@color/cardview_dark_background" />
-    </LinearLayout>
 </LinearLayout>
-</ScrollView>

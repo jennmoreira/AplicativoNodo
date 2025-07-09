@@ -13,9 +13,8 @@ import android.widget.Toast;
 import com.uniftec.loginexemplo.evento.DetailEvento;
 import com.uniftec.loginexemplo.evento.ActivityEvento;
 import com.uniftec.loginexemplo.R;
+import com.uniftec.loginexemplo.sql.AppDatabaseHelper;
 import com.uniftec.loginexemplo.sql.eventos.Evento;
-import com.uniftec.loginexemplo.sql.eventos.EventosDatabaseHelper;
-import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
 
 import java.util.List;
 
@@ -69,7 +68,7 @@ public class EventosAdapter extends ArrayAdapter<Evento> {
             if (btnDelete != null) {
                 btnDelete.setVisibility(View.VISIBLE);
                 btnDelete.setOnClickListener(v -> {
-                    EventosDatabaseHelper db = new EventosDatabaseHelper(mContext);
+                    AppDatabaseHelper db = new AppDatabaseHelper(mContext);
                     boolean sucesso = db.excluirEvento(currentEvento.getId());
                     if (sucesso) {
                         mEventosList.remove(position);

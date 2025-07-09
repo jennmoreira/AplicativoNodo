@@ -17,13 +17,12 @@ import com.uniftec.loginexemplo.perfil.ConfPrivacidadeActivity;
 import com.uniftec.loginexemplo.perfil.EditarPerfilActivity;
 import com.uniftec.loginexemplo.perfil.SobreAplicativoActivity;
 import com.uniftec.loginexemplo.perfil.TrocarSenhaActivity;
-import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
+import com.uniftec.loginexemplo.sql.AppDatabaseHelper;
 
 public class FragmentPerfil extends Fragment {
 
     private long USU_ID_SESSION = -1;
     private Button btnLogout, btnEditar, btnTrocarSenha, btnSobre, btnPrivacidade;
-
 
     public FragmentPerfil() {
     }
@@ -50,9 +49,9 @@ public class FragmentPerfil extends Fragment {
         TextView textUsuario = view.findViewById(R.id.textUsuario);
 
         if (USU_ID_SESSION != -1) {
-            UsuariosDatabaseHelper dbHelper = new UsuariosDatabaseHelper(getContext());
-            String USU_NOME = dbHelper.retornaNomeUsuario((int) USU_ID_SESSION);
-            dbHelper.close();
+            AppDatabaseHelper db = new AppDatabaseHelper(getContext());
+            String USU_NOME = db.retornaNomeUsuario((int) USU_ID_SESSION);
+            db.close();
 
             if (!USU_NOME.isEmpty()) {
                 textUsuario.setText("Olá, " + USU_NOME + "!");

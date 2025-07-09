@@ -46,15 +46,18 @@ public class HomeActivity extends AppCompatActivity {
 
         inicializarComponentes();
         configurarEventos();
+
+        FragmentHome initialFragment = new FragmentHome();
+        Bundle bundleHome = new Bundle();
+        bundleHome.putLong("USU_ID_SESSION", USU_ID_SESSION);
+        initialFragment.setArguments(bundleHome);
+        carregarFragmento(initialFragment);
+
         bottomNavigationView.setSelectedItemId(R.id.item_home);
     }
 
     private void inicializarComponentes(){
         bottomNavigationView = findViewById(R.id.btnNavega);
-        evento1 = findViewById(R.id.evento1);
-        evento2 = findViewById(R.id.evento2);
-        vaga1 = findViewById(R.id.vaga1);
-        vaga2 = findViewById(R.id.vaga2);
     }
 
     private void configurarEventos() {
@@ -68,6 +71,9 @@ public class HomeActivity extends AppCompatActivity {
 
                 if (id == R.id.item_home) {
                     selectedFragment = new FragmentHome();
+                    Bundle bundleHome = new Bundle();
+                    bundleHome.putLong("USU_ID_SESSION", USU_ID_SESSION);
+                    selectedFragment.setArguments(bundleHome);
                 } else if (id == R.id.item_eventos) {
                     selectedFragment = new FragmentEventos();
                     Bundle bundleHome = new Bundle();

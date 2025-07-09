@@ -16,9 +16,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.uniftec.loginexemplo.evento.DetailEvento;
 import com.uniftec.loginexemplo.evento.ActivityEvento;
 import com.uniftec.loginexemplo.R;
+import com.uniftec.loginexemplo.sql.AppDatabaseHelper;
 import com.uniftec.loginexemplo.sql.eventos.Evento;
-import com.uniftec.loginexemplo.sql.eventos.EventosDatabaseHelper;
-import com.uniftec.loginexemplo.sql.usuarios.UsuariosDatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +27,7 @@ public class FragmentEventos extends Fragment {
     private static final int REQUEST_NOVO_EVENTO = 1;
     private List<Evento> eventos;
     private EventosAdapter adapter;
-    private EventosDatabaseHelper eventosDb;
-    private UsuariosDatabaseHelper usuariosDb;
+    private AppDatabaseHelper db;
     private long USU_ID_SESSION = -1;
     private String tipoUsuarioLogado = null;
 
@@ -48,12 +46,11 @@ public class FragmentEventos extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_eventos, container, false);
 
-        eventosDb = new EventosDatabaseHelper(getContext());
-        usuariosDb = new UsuariosDatabaseHelper(getContext());
+        db = new AppDatabaseHelper(getContext());
         eventos = new ArrayList<>();
 
         if (USU_ID_SESSION != -1) {
-            tipoUsuarioLogado = usuariosDb.getTipoUsuario(USU_ID_SESSION);
+            tipoUsuarioLogado = db.getTipoUsuario(USU_ID_SESSION);
         }
 
         ListView listaEventos = view.findViewById(R.id.lista_eventos);
@@ -88,7 +85,7 @@ public class FragmentEventos extends Fragment {
     public void onResume() {
         super.onResume();
         if (USU_ID_SESSION != -1) {
-            tipoUsuarioLogado = usuariosDb.getTipoUsuario(USU_ID_SESSION);
+            tipoUsuarioLogado = db.getTipoUsuario(USU_ID_SESSION);
             FloatingActionButton btnAdicionar = getView().findViewById(R.id.btnAdicionarEvento);
             if ("criador".equals(tipoUsuarioLogado)) {
                 btnAdicionar.setVisibility(View.VISIBLE);
@@ -102,7 +99,7 @@ public class FragmentEventos extends Fragment {
     }
 
     private void carregarEventosDoBanco() {
-        List<Evento> eventosDoBanco = eventosDb.retornaTodosEventos();
+        List<Evento> eventosDoBanco = db.retornaTodosEventos();
 
         if (eventosDoBanco != null) {
             adapter.setEventos(eventosDoBanco);
