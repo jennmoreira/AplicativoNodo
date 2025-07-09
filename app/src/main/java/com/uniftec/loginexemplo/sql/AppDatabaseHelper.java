@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.uniftec.loginexemplo.sql.candidatos.Candidato;
 import com.uniftec.loginexemplo.sql.eventos.Evento;
@@ -17,11 +16,10 @@ import java.util.List;
 public class AppDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "apkProjeto.db";
-    private static final int DATABASE_VERSION = 160;
+    private static final int DATABASE_VERSION = 165;
 
     private Context context;
 
-    // --- Constantes da Tabela USUARIOS ---
     public static final String TABLE_USERS = "USUARIOS";
     public static final String USU_ID = "id";
     public static final String USU_NOME = "name";
@@ -45,7 +43,6 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
                     USU_TIPO + " TEXT NOT NULL DEFAULT 'prestador' , " +
                     USU_SENHA + " TEXT NOT NULL);";
 
-    // --- Constantes da Tabela EVENTOS ---
     public static final String TABLE_EVENTS = "EVENTOS";
     public static final String EVE_ID = "id";
     public static final String EVE_NOME = "nome";
@@ -84,12 +81,10 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
                     EVE_CAT_OUT + " INTEGER DEFAULT 0" +
                     ");";
 
-    // --- Constantes da Tabela CANDIDATOS ---
     public static final String TABLE_CANDIDATOS = "CANDIDATOS";
     public static final String CAN_ID = "can_id";
-    // EVE_ID e USU_ID já estão definidos acima
-    public static final String CAN_EVE_ID = "eve_id"; // Renomeado para evitar conflito
-    public static final String CAN_USU_ID = "usu_id"; // Renomeado para evitar conflito
+    public static final String CAN_EVE_ID = "eve_id";
+    public static final String CAN_USU_ID = "usu_id";
 
     private static final String CREATE_TABLE_CANDIDATOS =
             "CREATE TABLE IF NOT EXISTS " + TABLE_CANDIDATOS + " (" +
@@ -109,46 +104,37 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL(CREATE_TABLE_USERS);
-            inserirUsuarioPadrao(db); // Insere usuários padrão após a criação da tabela
+            inserirUsuarioPadrao(db);
             db.execSQL(CREATE_TABLE_EVENTS);
             db.execSQL(CREATE_TABLE_CANDIDATOS);
         } catch (Exception e) {
-            Log.e("AppDatabaseHelper", "Erro ao criar tabelas: " + e.getMessage());
             throw new RuntimeException("Falha ao criar tabelas", e);
         }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w("AppDatabaseHelper", "Atualizando banco de dados de v. " + oldVersion + " para " + newVersion);
-
-        // Lógica de backup e restauração para USUARIOS
         List<Usuario> usuariosBackup = new ArrayList<>();
         if (tabelaExiste(db, TABLE_USERS)) {
             usuariosBackup = obterUsuariosParaBackup(db);
         }
 
-        // Lógica de backup e restauração para EVENTOS
         List<Evento> eventosBackup = new ArrayList<>();
         if (tabelaExiste(db, TABLE_EVENTS)) {
             eventosBackup = obterEventosParaBackup(db);
         }
 
-        // Lógica de backup e restauração para CANDIDATOS
         List<Candidato> candidatosBackup = new ArrayList<>();
         if (tabelaExiste(db, TABLE_CANDIDATOS)) {
             candidatosBackup = obterCandidatosParaBackup(db);
         }
 
-        // Dropa todas as tabelas existentes
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CANDIDATOS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
 
-        // Cria as novas tabelas
         onCreate(db);
 
-        // Restaura os dados
         if (!usuariosBackup.isEmpty()) {
             restaurarUsuariosDoBackup(db, usuariosBackup);
         }
@@ -173,7 +159,6 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    // --- Métodos de backup/restauração para USUARIOS ---
     private List<Usuario> obterUsuariosParaBackup(SQLiteDatabase db) {
         List<Usuario> usuarios = new ArrayList<>();
         Cursor cursor = null;
@@ -212,12 +197,11 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
             values.put(USU_ESTADO, usuario.getEstado());
             values.put(USU_CIDADE, usuario.getCidade());
             values.put(USU_TIPO, usuario.getTipoUsuario());
-            values.put(USU_SENHA, usuario.getSenha()); // Certifique-se de restaurar a senha
+            values.put(USU_SENHA, usuario.getSenha());
             db.insert(TABLE_USERS, null, values);
         }
     }
 
-    // --- Métodos de backup/restauração para EVENTOS ---
     private List<Evento> obterEventosParaBackup(SQLiteDatabase db) {
         List<Evento> eventos = new ArrayList<>();
         Cursor cursor = null;
@@ -278,7 +262,6 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    // --- Métodos de backup/restauração para CANDIDATOS ---
     private List<Candidato> obterCandidatosParaBackup(SQLiteDatabase db) {
         List<Candidato> candidatos = new ArrayList<>();
         Cursor cursor = null;
@@ -309,8 +292,6 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-
-    // --- Métodos de USUARIOS ---
     private void inserirUsuarioPadrao(SQLiteDatabase db) {
         String nomePadrao = "Usuário Criador";
         String emailPadrao = "c@gmail.com";
@@ -593,7 +574,6 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
         return usuarios;
     }
 
-    // --- Métodos de EVENTOS ---
     public long criarEvento(Evento evento) {
         SQLiteDatabase db = null;
         try {
@@ -618,7 +598,6 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
             long result = db.insert(TABLE_EVENTS, null, values);
             return result;
         } catch (Exception e) {
-            Log.e("AppDatabaseHelper", "Erro ao criar evento: " + e.getMessage());
             return -1;
         } finally {
             if (db != null) {
@@ -705,7 +684,6 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
             int rowsAffected = db.update(TABLE_EVENTS, values, selection, selectionArgs);
             return rowsAffected > 0;
         } catch (Exception e) {
-            Log.e("AppDatabaseHelper", "Erro ao atualizar evento: " + e.getMessage());
             return false;
         } finally {
             if (db != null) {
@@ -724,7 +702,6 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
             int rowsAffected = db.delete(TABLE_EVENTS, selection, selectionArgs);
             return rowsAffected > 0;
         } catch (Exception e) {
-            Log.e("AppDatabaseHelper", "Erro ao excluir evento: " + e.getMessage());
             return false;
         } finally {
             if (db != null) {
@@ -785,7 +762,6 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
         return eventosList;
     }
 
-    // --- Métodos de CANDIDATOS ---
     public boolean inserirCandidato(long eveId, long usuId) {
         SQLiteDatabase db = null;
         try {
@@ -797,7 +773,6 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
             long result = db.insert(TABLE_CANDIDATOS, null, values);
             return result != -1;
         } catch (Exception e) {
-            Log.e("AppDatabaseHelper", "Erro ao inserir candidato: " + e.getMessage());
             return false;
         } finally {
             if (db != null) {
@@ -825,41 +800,34 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public List<Usuario> getTop10RecentCandidates() {
-        List<Usuario> candidates = new ArrayList<>();
+    public List<String> getTop10RecentCandidates() {
+        List<String> candidateDetails = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = "SELECT T2." + USU_ID + ", T2." + USU_NOME + ", T2." + USU_EMAIL + ", T2." + USU_TELEFONE + ", T2." + USU_ENDERECO + ", T2." + USU_ESTADO + ", T2." + USU_CIDADE + ", T2." + USU_TIPO +
-                ", T2." + USU_SENHA +
+        String query = "SELECT " +
+                "T2." + USU_NOME + ", " +
+                "T3." + EVE_NOME +
                 " FROM " + TABLE_CANDIDATOS + " AS T1" +
                 " INNER JOIN " + TABLE_USERS + " AS T2 ON T1." + CAN_USU_ID + " = T2." + USU_ID +
-                " GROUP BY T2." + USU_ID +
+                " INNER JOIN " + TABLE_EVENTS + " AS T3 ON T1." + CAN_EVE_ID + " = T3." + EVE_ID +
                 " ORDER BY T1." + CAN_ID + " DESC LIMIT 10";
 
         Cursor cursor = null;
         try {
             cursor = db.rawQuery(query, null);
 
-            if (cursor.moveToFirst()) {
+            if (cursor != null && cursor.moveToFirst()) {
                 do {
-                    long id = cursor.getLong(cursor.getColumnIndexOrThrow(USU_ID));
-                    String nome = cursor.getString(cursor.getColumnIndexOrThrow(USU_NOME));
-                    String email = cursor.getString(cursor.getColumnIndexOrThrow(USU_EMAIL));
-                    String telefone = cursor.getString(cursor.getColumnIndexOrThrow(USU_TELEFONE));
-                    String endereco = cursor.getString(cursor.getColumnIndexOrThrow(USU_ENDERECO));
-                    String estado = cursor.getString(cursor.getColumnIndexOrThrow(USU_ESTADO));
-                    String cidade = cursor.getString(cursor.getColumnIndexOrThrow(USU_CIDADE));
-                    String tipoUsuario = cursor.getString(cursor.getColumnIndexOrThrow(USU_TIPO));
-                    String senha = cursor.getString(cursor.getColumnIndexOrThrow(USU_SENHA));
-
-                    candidates.add(new Usuario(id, nome, email, telefone, endereco, estado, cidade, tipoUsuario, senha));
+                    String nomeUsuario = cursor.getString(cursor.getColumnIndexOrThrow(USU_NOME));
+                    String nomeEvento = cursor.getString(cursor.getColumnIndexOrThrow(EVE_NOME));
+                    candidateDetails.add(nomeUsuario + " - " + nomeEvento);
                 } while (cursor.moveToNext());
             }
         } finally {
             if (cursor != null) cursor.close();
             if (db != null) db.close();
         }
-        return candidates;
+        return candidateDetails;
     }
 
     public List<Evento> getTop10RecentAppliedEventsByPrestador(long prestadorUsuId) {

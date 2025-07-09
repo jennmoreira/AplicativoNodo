@@ -65,20 +65,17 @@ public class FragmentHome extends Fragment {
 
     private void loadHomeContent() {
         if (USU_ID_SESSION != -1) {
-            String tipoUsuario = null;
-            tipoUsuario = db.getTipoUsuario(USU_ID_SESSION);
+            String tipoUsuario = db.getTipoUsuario(USU_ID_SESSION);
 
             dataList.clear();
 
             if ("criador".equals(tipoUsuario)) {
-                homeTitle.setText("Últimos 10 Usuários Cadastrados");
-                List<Usuario> recentUsers = db.getTop10RecentUsers();
-                if (recentUsers != null && !recentUsers.isEmpty()) {
-                    for (Usuario user : recentUsers) {
-                        dataList.add("Nome: " + user.getNome() + " | Email: " + user.getEmail());
-                    }
+                homeTitle.setText("Últimas 10 Candidaturas em Eventos");
+                List<String> recentCandidatesDetails = db.getTop10RecentCandidates();
+                if (recentCandidatesDetails != null && !recentCandidatesDetails.isEmpty()) {
+                    dataList.addAll(recentCandidatesDetails);
                 } else {
-                    dataList.add("Nenhum usuário recente encontrado.");
+                    dataList.add("Nenhuma candidatura recente encontrada.");
                 }
             } else if ("prestador".equals(tipoUsuario)) {
                 homeTitle.setText("Últimos 10 Eventos que Você se Candidatou");
